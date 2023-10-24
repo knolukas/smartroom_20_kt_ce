@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+
+@font-face {
+    font-family: 'HelveticaNeueExtended';
+    src: url("../src/assets/HelveticaNeueLTStd63MediumExtended.otf") format('opentype');
+  }
+
+body{
+    background-color: #1A1A1A;
+    color: white;
+
+    /*1em = 10px*/
+    font-size:62.5%;
+
+    font-family: "HelveticaNeueExtended", sans-serif;
+
+}

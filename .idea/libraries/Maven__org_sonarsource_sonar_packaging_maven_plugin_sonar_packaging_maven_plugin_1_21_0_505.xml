@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.sonarsource.sonar-packaging-maven-plugin:sonar-packaging-maven-plugin:1.21.0.505">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/sonarsource/sonar-packaging-maven-plugin/sonar-packaging-maven-plugin/1.21.0.505/sonar-packaging-maven-plugin-1.21.0.505.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/sonarsource/sonar-packaging-maven-plugin/sonar-packaging-maven-plugin/1.21.0.505/sonar-packaging-maven-plugin-1.21.0.505-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/sonarsource/sonar-packaging-maven-plugin/sonar-packaging-maven-plugin/1.21.0.505/sonar-packaging-maven-plugin-1.21.0.505-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

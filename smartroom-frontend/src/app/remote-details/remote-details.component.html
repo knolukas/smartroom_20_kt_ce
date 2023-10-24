@@ -1,0 +1,95 @@
+<h1>Remote Control devices in {{ room.name }}.</h1>
+
+
+<div class="container">
+  <div *ngIf="room.doors.length > 0">
+    <h1>Doors</h1>
+    <div class="flex">
+      <div *ngFor="let door of room.doors; let i = index" class="deviceTab">
+        <div class="upperRow">
+          <span class="title link" [routerLink]="['/remote-details', room.id]">
+            Door id: {{ door.id }}
+          </span>
+        </div>
+        <div class="middleRow">
+          <div class="icon"><img src="../assets/Door.svg" alt=""></div>
+          <div class="container">
+            <h3 class="status">Status: {{ door.open ? 'open' : 'closed' }}</h3>
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="door.open" [value]="door.open" (change)="updateRoom()">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="room.roomWindows.length > 0">
+    <h1>Windows</h1>
+    <div class="flex">
+      <div *ngFor="let window of room.roomWindows; let i = index" class="deviceTab">
+        <div class="upperRow">
+          <span class="title link" [routerLink]="['/remote-details', room.id]">
+            Window id: {{ window.id }}
+          </span>
+        </div>
+        <div class="middleRow">
+          <div class="icon"><img src="../assets/Window.svg" alt=""></div>
+          <div class="container">
+            <h3 class="status">Status: {{ window.open ? 'open' : 'closed' }}</h3>
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="window.open" [value]="window.open" (change)="updateRoom()">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="room.lights.length > 0">
+    <h1>Light</h1>
+    <div class="flex">
+      <div *ngFor="let light of room.lights; let i = index" class="deviceTab">
+        <div class="upperRow">
+          <span class="title link" [routerLink]="['/remote-details', room.id]">
+            Light id: {{ light.id }}
+          </span>
+        </div>
+        <div class="middleRow">
+          <div class="icon"><img src="../assets/Bulb.svg" alt=""></div>
+          <div class="container">
+            <h3 class="status">Status: {{ light.open ? 'on' : 'off' }}</h3>
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="light.open" [value]="light.open" (change)="updateRoom()">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="room.fans.length > 0">
+    <div class="flex">
+      <div *ngFor="let fan of room.fans; let i = index" class="deviceTab">
+        <div class="upperRow">
+          <span class="title link" [routerLink]="['/remote-details', room.id]">
+            Fan id: {{ fan.id }}
+          </span>
+        </div>
+        <div class="middleRow">
+          <div class="icon"><img src="../assets/Fan.svg" alt=""></div>
+          <div class="container">
+            <h3 class="status">Status: {{ fan.open ? 'on' : 'off' }}</h3>
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="fan.open" [value]="fan.open" (change)="updateRoom()">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

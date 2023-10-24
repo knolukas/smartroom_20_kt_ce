@@ -1,0 +1,283 @@
+
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-gap {
+  display: flex;
+  gap: 1rem;
+}
+
+
+.controlButton{
+  position: relative;
+  margin: 0 0 2rem 2rem !important;
+}
+
+/* Switch styling */
+.switch {
+display: inline-flex;
+align-items: center;
+height: 0.75rem;
+margin: 0.75rem;
+}
+
+/* Hide default checkbox */
+.switch input.toggle {
+display: none;
+}
+
+.switch *{
+transition: 0.7s !important;
+}
+
+/* Slider styling */
+.slider {
+position: relative;
+flex: 0 0 2rem;
+height: max(1.3rem, 12px);
+border-radius: 1.5rem;
+transition: all 0.3s;
+display: flex;
+align-items: center;
+justify-content: flex-start;
+cursor: pointer;
+min-width: calc(1.3rem * 2.25);
+
+border: #D9D9D9 solid 0.115rem;
+}
+
+/* Bubble styling */
+.bubble {
+height: calc(1.2rem * 0.9);
+width:calc(1.2rem * 0.9);
+background-color: #D9D9D9;
+border-radius: 50%;
+transition: all 0.3s;
+margin-left: calc(1.2rem * 0.025);
+margin-right: calc(1.2rem * 0.025);
+}
+
+
+
+.switch input.toggle:checked + .slider .bubble {
+margin-left: auto;
+//background-color: black;
+
+}
+
+
+
+.controlButton{
+display: flex;
+flex-direction: column;
+width: 15rem;
+height: 16.9rem;
+padding: 0.75rem 1.5rem;
+border-radius: 1.5vw;
+background-color: #242424;
+min-width: 15rem !important;
+max-width: 15rem !important;
+}
+
+
+.controlButton .upperRow{
+align-self: flex-start;
+display: flex;
+justify-content: space-between;
+width: 100%;
+}
+
+
+
+.controlButton .upperRow .settings{
+height: 2.25rem;
+width: 2.25rem;
+border-radius: 50%;
+}
+
+.controlButton .upperRow .settings:hover{
+background-color: #D9D9D9;
+}
+
+.controlButton .upperRow .settings:hover img{
+filter: invert(100%) !important;
+}
+
+.controlButton .upperRow .settings{
+margin: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.controlButton .upperRow .settings img{
+height: 3rem;
+}
+
+.controlButton .upperRow .icon{
+height: 3rem;
+width: 3rem;
+background-color: #D9D9D9;
+display: flex;
+justify-content: center;
+align-items: center;
+border-radius: 50%;
+margin-top: 0.75rem;
+}
+
+.controlButton.addValues:hover{
+  filter: invert(00%) !important;
+  }
+
+.controlButton .upperRow .icon img{
+filter: invert(100%);
+}
+
+
+.controlButton:hover{
+filter: invert(1);
+}
+.controlButton .upperRow img{
+max-height: 90%;
+filter: inherit(100%);
+}
+
+
+.controlButton .middleRow{
+flex: 1 0 auto;
+text-align: middle;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+
+.controlButton .middleRow .title{
+width: 70%;
+margin-right: auto;
+overflow-wrap: break-word;
+font-size: 1.8rem;
+}
+
+.controlButton .bottomRow{
+width: 100%;
+align-self: flex-end;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding-top: 3rem;
+}
+
+.controlButton .bottomRow .state{
+font-size: 1.125rem;
+opacity: 0.25;
+}
+
+.controlButton .bottomRow .switch{
+height: 1.125rem;
+margin: auto 0 auto 0;
+}
+
+
+.controlButton.addValues .middleRow { 
+  flex-direction: column;
+}
+.controlButton.addValues .middleRow .button{
+  width: 100%;
+  margin-right: auto;
+  overflow-wrap: break-word;
+  font-size: 1.25rem;
+  margin: 1rem 0rem 1rem 0;
+  height: auto;
+  box-shadow: #fff;
+  text-shadow: 0rem 0rem 1rem rgba(255, 255, 255, 0.25);
+  text-align: center;
+  line-height: 3rem;
+  border-radius: 0.5rem;
+  background-color: #191919;
+  box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.controlButton.addValues .middleRow .button:hover {
+  text-shadow: 0rem 0rem 1rem rgba(255, 255, 255, 0.75);
+}
+
+.controlButton.valueContainer .upperRow{
+  justify-content: end;
+}
+
+.controlButton.valueContainer .middleRow .number{
+font-size: 7.2rem;      
+}
+
+.controlButton.valueContainer .bottomRow .description{
+font-size: 1.2rem;
+margin: 0.25rem;   
+opacity: 0.5;   
+}
+
+.controlButton.addDevice:hover{
+filter: invert(00%) !important;
+}
+
+.controlButton.addDevice .middleRow{
+display: flex;
+flex-wrap: wrap;
+}
+
+.controlButton.addDevice .middleRow .addDeviceButton{
+
+background-color: red ;
+
+width: 6rem;
+height: 6rem; 
+
+margin: 0.5rem;
+
+display: flex;
+justify-content: center;
+align-items: center;
+
+overflow-wrap: break-word;
+font-size: 1.25rem;
+
+box-shadow: #fff;
+text-shadow: 0rem 0rem 1rem rgba(255, 255, 255, 0.25);
+text-align: center;
+border-radius: 0.5rem;
+background-color: #191919;
+box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+cursor: pointer;
+position: relative;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+
+.controlButton.addDevice .middleRow .addDeviceButton:hover {
+text-shadow: 0rem 0rem 1rem rgba(255, 255, 255, 0.75);
+}
+
+.controlButton.addDevice .middleRow .addDeviceButton img {
+height: 5rem;
+}
+
+.controlButton .middleRow .addDeviceButton:hover, .controlButton .middleRow .addDeviceButton img:hover{
+filter: drop-shadow(0 0 1rem rgba(255, 255, 255, 0.3));
+}
+

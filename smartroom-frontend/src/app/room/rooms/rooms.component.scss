@@ -1,0 +1,142 @@
+.flex {
+  display: flex;
+}
+
+.roomTab {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  height: 22.5rem;
+  padding: 1rem 2rem;
+  border-radius: 2vw;
+  margin: 0 2rem 2rem 0;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.25);
+
+  filter: drop-shadow(1rem, 1rem, 1rem, #000);
+
+  background: linear-gradient(-30deg, #1E1E1E 75%, #545454 100%);
+
+  background: -webkit-linear-gradient(-30deg, #1E1E1E 75%, #545454 100%);
+  background: -moz-linear-gradient(-30deg, #1E1E1E 75%, #545454 100%);
+  background: -o-linear-gradient(-30deg, #1E1E1E 75%, #545454 100%);
+  background: linear-gradient(-30deg, #1E1E1E 75%, #545454 100%);
+
+  -webkit-transition: background 0.7s ease-out;
+  -moz-transition: background 0.7s ease-out;
+  -o-transition: background 0.7s ease-out;
+  transition: background 0.7s ease-out;
+
+  background-size: 300% 300%;
+
+  background-position-x: 100%;
+  background-position-y: 100%;
+  cursor: pointer;
+}
+
+.roomTab:hover {
+  /*background: linear-gradient(105.18deg, #383838 0%, #1E1E1E 100%);
+  transition: background 2s ease-in-out;*/
+
+  background-position-x: 0%;
+  background-position-y: 0%;
+
+}
+
+.roomTab .upperRow {
+  align-self: flex-start;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.link, link:link, link:visited, link:hover, link:active {
+  color: white;
+  text-decoration: none;
+}
+
+.roomTab .upperRow .title {
+  width: 70%;
+  margin-right: auto;
+  overflow-wrap: break-word;
+  font-size: 3.4rem;
+  margin: 2rem 2rem 2rem 0;
+}
+
+.roomTab .middleRow {
+  flex: 1 0 auto;
+  text-align: left;
+  display: flex;
+  justify-content: center;
+}
+
+.roomTab .middleRow .link {
+  width: 100%;
+  margin-right: auto;
+  overflow-wrap: break-word;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  opacity: 0.5;
+  display: flex;
+  justify-content: row;
+}
+
+.roomTab .middleRow .link .icon {
+  height: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.roomTab .middleRow .link .icon img {
+  height: 100%;
+}
+
+
+.roomTab .bottomRow {
+  width: 100%;
+  align-self: flex-end;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 4rem;
+}
+
+.roomTab .bottomRow .roomActionButton {
+  display: inline-block;
+  position: relative;
+}
+
+.roomTab .bottomRow .roomActionButton .innerContainer {
+  font-size: 0.7rem;
+  line-height: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+}
+
+.roomTab .bottomRow .roomActionButton .icon {
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.roomTab .bottomRow .roomActionButton .icon img {
+  height: 100%;
+}
+
+.roomActionButton:hover::before {
+  content: "";
+  display: block;
+  height: 0.1rem;
+  width: 100%;
+  background-color: #fff;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.roomActionButton:hover::before {
+  opacity: 1;
+}

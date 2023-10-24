@@ -1,0 +1,16 @@
+<h1>Remote Control</h1>
+<div class="flex container">
+  <div *ngFor="let room of rooms; let i = index" class="roomTab">
+    <div class="upperRow">
+      <a class="title link" [routerLink]="['/remote-details', room.id]">
+        {{ room.name }}
+      </a>
+    </div>
+    <div class="middleRow">
+      <a class="link" [routerLink]="['/remote-details', room.id]">
+        Click to remote control devices in {{ room.name }}.
+        <div class="icon"><img src="../assets/Arrow.svg" alt=""></div>
+      </a>
+    </div>
+  </div>
+</div>

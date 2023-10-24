@@ -1,0 +1,530 @@
+
+<style>
+    .roomTab{
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      width: 20rem;
+      height: 22.5rem;
+      padding: 1rem 2rem;
+      border-radius: 2vw;
+      margin: 0 2rem 2rem 0;
+      box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.25);
+    
+      filter: drop-shadow(1rem, 1rem, 1rem, #000);
+    
+      background: linear-gradient(-30deg, #1E1E1E 75%, #545454 100%);
+    
+      background: -webkit-linear-gradient(-30deg, #1E1E1E 75%, #545454 100%);  
+        background: -moz-linear-gradient(-30deg, #1E1E1E 75%, #545454 100%);  
+        background: -o-linear-gradient(-30deg, #1E1E1E 75%, #545454 100%);  
+        background: linear-gradient(-30deg, #1E1E1E 75%, #545454 100%);  
+      
+        -webkit-transition: background 0.7s ease-out;  
+        -moz-transition: background 0.7s ease-out;  
+        -o-transition: background 0.7s ease-out;  
+        transition: background 0.7s ease-out;  
+      
+        background-size: 300% 300%;  
+    
+        background-position-x:100%; 
+        background-position-y:100%; 
+        cursor:pointer; 
+    }
+    
+    .roomTab:hover {
+        /*background: linear-gradient(105.18deg, #383838 0%, #1E1E1E 100%);
+        transition: background 2s ease-in-out;*/
+    
+        background-position-x: 0%;
+        background-position-y: 0%;
+    
+    }
+    
+    .roomTab .mainTab{
+        height: 100% !important;
+        position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .roomTab .mainTab .upperRow{
+      align-self: flex-start;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+    
+    .roomTab .mainTab .upperRow .title{
+      width: 70%;
+      margin-right: auto;
+      overflow-wrap: break-word;
+      font-size: 3.4rem;
+      margin: 2rem 2rem 2rem 0;
+      height: auto;
+    }
+    
+    .roomTab .mainTab .middleRow{
+      flex: 1 0 auto;
+      text-align: left;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .roomTab .mainTab .middleRow .link{
+      width: 100%;
+      margin-right: auto;
+      overflow-wrap: break-word;
+      font-size: 0.75rem;
+      line-height: 1rem;
+      opacity: 0.5;
+      display: flex;
+      justify-content: row;
+    }
+    
+    .roomTab .mainTab .middleRow .link .icon{
+      height: 1rem;
+      display: flex;
+      align-items: center;
+    }
+    
+    .roomTab .mainTab .middleRow .link .icon img{
+      height: 100%;
+    }
+    
+    
+    .roomTab .mainTab .bottomRow{
+      width: 100%;
+      align-self: flex-end;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 4rem;
+    }
+    
+    .roomTab .mainTab .bottomRow .roomActionButton{
+      display: inline-block;
+      position: relative;
+    }
+
+    .roomTab .mainTab .bottomRow .roomActionButton * {
+      -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+    }
+    
+    .roomTab .mainTab .bottomRow .roomActionButton .innerContainer{
+      font-size: 0.7rem;
+      line-height: 1.5rem;
+      display: flex;
+      flex-direction: row;
+      cursor: pointer;
+    }
+    
+    .roomTab .mainTab .bottomRow .roomActionButton .icon{
+      height: 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+    
+    .roomTab .mainTab .bottomRow .roomActionButton .icon img{
+      height: 100%;
+    }
+    
+    .roomTab .mainTab .roomActionButton:hover::before{
+      content: "";
+      display: block;
+      height: 0.1rem;
+      width: 100%;
+      background-color: #fff;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+    
+    .roomTab .mainTab .roomActionButton:hover::before{
+      opacity: 1;
+    }
+
+    .roomTab .detailsTab{
+        height: 100% !important;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        padding: 0.5rem;
+    }
+
+    .roomTab .detailsTab .title{
+      width: 100%;
+      margin-right: auto;
+      overflow-wrap: break-word;
+      font-size: 2.25rem;
+      margin: 1rem 0rem 1rem 0;
+      height: auto;
+      text-align: center;
+      text-decoration: underline; /* drop shadow */
+      box-shadow: #fff;
+      text-shadow: 0rem 0rem 1rem rgba(255, 255, 255, 0.75);
+    }
+
+    
+    .roomTab .detailsTab .facts{
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        margin-bottom: 0.75rem;
+        font-size: 1rem;
+        opacity: 0.25;
+        margin: 0 1rem 0.5rem 1rem;
+
+    }
+
+    .roomTab .detailsTab .button{
+        width: 100%;
+      margin-right: auto;
+      overflow-wrap: break-word;
+      font-size: 1.25rem;
+      margin: auto 0rem 1rem 0;
+      height: auto;
+      box-shadow: #fff;
+      text-shadow: 0rem 0rem 1rem rgba(255, 255, 255, 0.25);
+      text-align: center;
+      line-height: 3rem;
+      border-radius: 0.5rem;  
+      background-color: #191919;
+      box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+      position: relative;
+
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .roomTab .editRoom .button:active{
+      box-shadow: inset 0 0.25rem 0.25rem rgba(255, 255, 255, 0.1);
+    }
+
+    .roomTab .detailsTab .button:hover{
+        text-shadow: 0rem 0rem 1rem rgba(255, 255, 255, 0.75);
+    }
+    .roomTab .detailsTab .button:hover::before{
+      content: "";
+      display: block;
+      height: 0.1rem;
+      width: 100%;
+      background-color: #fff;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .roomTab .editRoom{
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .roomTab .editRoom .button{
+        width: 100%;
+      margin-right: auto;
+      overflow-wrap: break-word;
+      font-size: 1.25rem;
+      margin: auto 0rem 1rem 0;
+      height: auto;
+      box-shadow: #fff;
+      text-shadow: 0rem 0rem 1rem rgba(255, 255, 255, 0.25);
+      text-align: center;
+      line-height: 3rem;
+      border-radius: 0.5rem;  
+      background-color: #191919;
+      box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+      position: relative;
+
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .roomTab .editRoom .button:hover{
+        text-shadow: 0rem 0rem 1rem rgba(255, 255, 255, 0.75);
+    }
+    .roomTab .editRoom .button:hover::before{
+      content: "";
+      display: block;
+      height: 0.1rem;
+      width: 100%;
+      background-color: #fff;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+    
+    .roomTab .editRoom .inputField{
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .roomTab .editRoom .inputField input{
+        background: #171717;
+        line-height: 1.5rem;
+        text-align: center;
+        text-decoration: none;
+        /*box-shadow: inset 1px 1px 1px 1px black !important;
+*/
+    }
+
+    .roomTab .editRoom input[type="text"], .roomTab .editRoom input[type="number"] {
+    /*box-shadow: inset 0 0 5px red !important;
+   */ border: solid 2px #171717;
+   -webkit-appearance: none;
+    }
+
+    /* Chrome, Safari, Edge, Opera */
+    .roomTab .editRoom input::-webkit-outer-spin-button,
+    .roomTab .editRoom input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.roomTab .editRoom input[type=number] {
+  -moz-appearance: textfield;
+}
+    
+    .roomTab .editRoom .inputField{
+      margin: 2.5%;      
+
+    }
+
+    .roomTab .editRoom .inputField *{
+      color: white;
+      font-family: "HelveticaNeueExtended", sans-serif;
+      border-radius: 0.5rem;
+      appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+    }
+
+    .roomTab .editRoom .inputField label{
+      margin-left: 1rem;
+    }
+
+    .roomTab .editRoom .inputField label, .roomTab .editRoom .inputField sup{
+      color: rgba(255,255,255,0.5);
+    }
+
+
+    .roomTab .editRoom .upperRow .inputField input{
+      font-size: 2.5rem;
+      line-height: 4.5rem;
+    }
+
+    .roomTab .editRoom .middleRow{
+      max-width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      height: auto;
+    }
+
+    .roomTab .editRoom .middleRow .inputField{
+        width: 45%;
+    }
+
+    .roomTab .editRoom .middleRow .inputField input{
+        line-height: 2.5rem;
+        font-size: 1.5rem;
+    }
+
+    .roomTab .editRoom .bottomRow{
+      margin-top: auto;
+    }
+
+    .hide{
+      display: none !important;
+    }
+
+    .roomTab .addNewRoom{
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .roomTab .addNewRoom .upperRow{
+      margin-top: 1.6rem;
+    }
+    .roomTab .addNewRoom .upperRow .icon{
+      margin-top: 16px;
+      margin-bottom: 1.6rem;
+      width: 4rem;
+      height: 4.5rem;
+    }
+
+    .roomTab .addNewRoom .upperRow .icon img{
+      height: 100%;
+    }
+
+    .roomTab .addNewRoom .middleRow .title{
+      height: 100%;
+      font-size: 1.6rem;
+      max-width: 8ch;
+    }
+
+    .roomTab .addNewRoom .middleRow .title span{
+      display: flex;
+    }
+
+    .roomTab .addNewRoom .middleRow .title .icon{
+      height: 2rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .roomTab .addNewRoom .middleRow .title .icon img{
+      height: 100%;
+    }
+
+    .roomTab .addNewRoom .bottomRow{
+      margin-top: auto;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+
+
+    </style>  
+    
+
+    
+
+    <div class="roomTab">
+      <div class="addNewRoom">
+        <div class="upperRow">
+          <div class="icon"><img src="../assets/AddComponentRoomsSection.svg" alt=""></div>
+        </div>
+        <div class="middleRow">
+          <div class="title"> <span>Add new</span> <span> Room <div class="icon"><img src="../assets/Arrow.svg" alt=""></div></span></div>
+        </div>
+        <div class="bottomRow">
+          <div class="description">Create a new Room</div>
+        </div>
+    </div>
+      <div class="editRoom hide">
+          <div class="upperRow">
+              <div class="inputField">
+                  <label>Room ID:</label>
+                  <input type="text">
+              </div>
+          </div>
+          
+          <div class="middleRow">
+              <div class="inputField">
+                  <label>Room Size in  m<sup>2</sup>:</label>
+                  <input type="number">
+              </div>
+              <div class="inputField">
+                  <label>Doors:</label>
+                  <input type="number">
+              </div>
+              <!--<div class="inputField">
+                  <label>Windows:</label>
+                  <input type="number">
+              </div>
+              <div class="inputField">
+                  <label>Lights:</label>
+                  <input type="number">
+              </div>
+              <div class="inputField">
+                  <label>Fans:</label>
+                  <input type="number">
+              </div>-->
+          </div>
+         <div class="bottomRow">
+          <div class="button">Delete Room</div>
+          <div class="button">Save Changes</div>
+        </div>
+    </div>
+  </div>
+
+
+<!--
+    <div class="roomTab">
+        <div class="editRoom">
+            <div class="upperRow">
+                <div class="inputField">
+                    <label>Room ID:</label>
+                    <input type="text">
+                </div>
+            </div>
+            
+            <div class="middleRow">
+                <div class="inputField">
+                    <label>Room Size in  m<sup>2</sup>:</label>
+                    <input type="number">
+                </div>
+                <div class="inputField">
+                    <label>Doors:</label>
+                    <input type="number">
+                </div>
+                <!--<div class="inputField">
+                    <label>Windows:</label>
+                    <input type="number">
+                </div>
+                <div class="inputField">
+                    <label>Lights:</label>
+                    <input type="number">
+                </div>
+                <div class="inputField">
+                    <label>Fans:</label>
+                    <input type="number">
+                </div>--><!--
+            </div>
+           <div class="bottomRow">
+            <div class="button">Delete Room</div>
+            <div class="button">Save Changes</div>
+          </div>
+        </div>
+        <div class="detailsTab" style="display:none;">
+            <div class="title">Living Room     </div>
+            <div class="facts"><div class="left">ID:    </div><div class="right">2</div></div>
+            <div class="facts"><div class="left">Size:  </div><div class="right">2</div></div>
+            <div class="facts"><div class="left">Widows:</div><div class="right">2</div></div>
+            <div class="facts"><div class="left">Doors: </div><div class="right">2</div></div>
+            <div class="facts"><div class="left">Lights:</div><div class="right">2</div></div>
+            <div class="facts"><div class="left">Fans:  </div><div class="right">2</div></div>
+            
+            
+            <div class="button">Close Details</div>
+        </div>
+        <div class="mainTab" style="display:none;">
+            <div class="upperRow">
+            <div class="title">
+                room .name
+              </div>
+            </div>
+            <div class="middleRow">
+            <div class="link">Go to Room Dashboard <div class="icon"><img src="../assets/Arrow.svg" alt=""></div></div>
+            </div>
+            <div class="bottomRow">
+            <div class="roomActionButton"><div class="innerContainer">Load Details<div class="icon"><img src="../assets/Redirect.svg" alt=""></div></div>
+            </div>
+            
+            <div class="roomActionButton"><div class="innerContainer">Edit Data<div class="icon"><img src="../assets/Redirect.svg" alt=""></div></div>
+            </div>
+    
+        </div>
+        
+        
+
+        </div>
+    </div>-->

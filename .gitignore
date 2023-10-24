@@ -1,0 +1,45 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Compiled output
+/smartroom-frontend/dist
+/smartroom-frontend/tmp
+/smartroom-frontend/out-tsc
+/smartroom-frontend/bazel-out
+
+# Node
+/smartroom-frontend/node_modules
+/smartroom-frontend/npm-debug.log
+/smartroom-frontend/yarn-error.log
+
+# IDEs and editors
+/smartroom-frontend/.idea/
+/smartroom-frontend/.project
+/smartroom-frontend/.classpath
+/smartroom-frontend/.c9/
+/smartroom-frontend/*.launch
+/smartroom-frontend/.settings/
+/smartroom-frontend/*.sublime-workspace
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# Miscellaneous
+/smartroom-frontend/.angular/cache
+/smartroom-frontend/.sass-cache/
+/smartroom-frontend/connect.lock
+/smartroom-frontend/coverage
+/smartroom-frontend/libpeerconnection.log
+/smartroom-frontend/testem.log
+/smartroom-frontend/typings
+
+# System files
+/smartroom-frontend/.DS_Store
+/smartroom-frontend/Thumbs.db
+
+# Project exclude paths
+/node_modules/

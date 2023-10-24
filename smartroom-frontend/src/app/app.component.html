@@ -1,0 +1,61 @@
+<!-- Navigation -->
+<nav id="sidebar" >
+  <div class="logo">
+    <img src="../assets/Logo.png" alt="Logo">
+  </div>
+  <ul>
+    <li routerLinkActive="active" routerLink="/dashboard">
+      <div class="indicator"></div>
+      <div class="icon"><img src="../assets/Dashboard.svg" alt="Dashboard"></div>
+      <a>Dashboard</a>
+    </li>
+
+
+
+    <!--<li routerLinkActive="active" routerLink="/rooms">-->
+    <!-- Activate  Routing Link on multiple Addresses -->
+    
+      <li [routerLinkActive]="['active']" routerLink="/room-list">
+        <a routerLink="/rooms" style="display: none"></a>
+        <a routerLink="/room-list" style="display: none"></a>
+        <a routerLink="/rooms" style="display: none"></a>
+        <a routerLink="/room-details" style="display: none"></a>
+        <a routerLink="/update-room" style="display: none"></a>
+        
+    
+      <div class="indicator"></div>
+      <div class="icon"><img src="../assets/House.svg" alt="Rooms"></div>
+      <a>Rooms</a>
+    </li>
+    <!--<li routerLinkActive="active" routerLink="/devices">
+      <div class="indicator"></div>
+      <div class="icon"><img src="../assets/Bulb.svg" alt="Devices"></div>
+      <a>Devices</a>
+    </li>
+    <li routerLinkActive="active" routerLink="/remote">
+      <div class="indicator"></div>
+      <div class="icon"><img src="../assets/Redirect.svg" alt="Remote Control"></div>
+      <a>Remote</a>
+    </li>-->
+  </ul>
+</nav>
+
+<div id="main">
+  <div class="topBar">
+    <div class="centered-title">Room Overview</div>
+    <li routerLinkActive="active" routerLink="/rooms/export" class="buttonLi">
+      <div class="button">
+        <a href="http://localhost:8080/rooms/export" class="button">
+          <img src="../assets/Download.svg" alt="/rooms/export">
+          <p class="button-text">Download Rooms</p>
+        </a>
+      </div>
+    </li>
+  </div>
+  <div class="mainBody">
+    <div class="mainContainer">
+      <router-outlet></router-outlet>
+      <div class="room_component"></div>
+    </div>
+  </div>
+</div>

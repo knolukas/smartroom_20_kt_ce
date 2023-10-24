@@ -1,0 +1,93 @@
+<div class="flex container">
+  <div *ngFor="let room of rooms; let i = index">
+<div class="roomTab" >
+  <div class="editRoom" [style.display]="editRoomVisible ? 'block' : 'none'">
+      <div class="upperRow">
+          <div class="inputField">
+              <label>Room ID:</label>
+              <input type="text" id="name" [(ngModel)]="room.name" placeholder="new Room">
+          </div>
+      </div>
+      
+      <div class="middleRow">
+          <div class="inputField">
+              <label>Room Size in  m<sup>2</sup>:</label>
+              <input type="number" id="size" [(ngModel)]="room.size" placeholder="0">
+          </div>
+         <!-- <div class="inputField">
+              <label>Doors:</label>
+              <input type="number"  placeholder="0">
+          </div>
+          <div class="inputField">
+              <label>Windows:</label>
+              <input type="number"  placeholder="0">
+          </div>
+          <div class="inputField">
+              <label>Lights:</label>
+              <input type="number"  placeholder="0">
+          </div>
+          <div class="inputField">
+              <label>Fans:</label>
+              <input type="number"  placeholder="0">
+          </div>-->
+      </div>
+     <div class="bottomRow">
+      <div class="button" type="button" label="Save" (click)="updateRoomNameSize(room, room.name, room.size); goToMainTab('mainTab')">Update Room</div>
+      <div class="button" type="button" label="Back" (click)="goToMainTab('mainTab')">Go Back</div>
+    </div>
+  </div>
+  <div class="detailsTab" style="display:none;"  [style.display]="detailsTabVisible ? 'block' : 'none'">
+      <div class="title"> {{room.name}}     </div>
+      <div class="facts"><div class="left">ID:    </div><div class="right">{{room.id}}</div></div>
+      <div class="facts"><div class="left">Size:  </div><div class="right">{{room.size}}</div></div>
+      <div class="facts"><div class="left">Widows:</div><div class="right">{{room.roomWindows.length}}</div></div>
+      <div class="facts"><div class="left">Doors: </div><div class="right">{{room.doors.length}}</div></div>
+      <div class="facts"><div class="left">Lights:</div><div class="right">{{room.lights.length}}</div></div>
+      <div class="facts"><div class="left">Fans:  </div><div class="right">{{room.fans.length}}</div></div>
+      
+      <div class="button" (click)="deleteRoom(room); forceLoadRooms();">Delete Room</div>
+      <div class="button" (click)="goToMainTab('mainTab')">Close Details</div>
+  
+  </div>
+  <div class="mainTab" [style.display]="mainTabVisible ? 'block' : 'none !important'">
+      <div class="upperRow">
+      <div class="title" [routerLink]="['/room-details', room.id]">
+         {{room.name}}
+        </div>
+      </div>
+      <div class="middleRow" [routerLink]="['/room-details', room.id]">
+      <div class="link">Go to Room Dashboard <div class="icon"><img src="../assets/Arrow.svg" alt=""></div></div>
+      </div>
+      <div class="bottomRow">
+      <div class="roomActionButton" (click)="goToMainTab('detailsTab')"><div class="innerContainer">Load Details<div class="icon"><img src="../assets/Redirect.svg" alt=""></div></div>
+      </div>
+      
+      <div class="roomActionButton" (click)="goToMainTab('editRoom')"><div class="innerContainer">Edit Data<div class="icon"><img src="../assets/Redirect.svg" alt=""></div></div>
+      </div>
+  </div>
+  </div>
+</div>
+</div>
+
+
+<!--
+<div class="flex container">
+  <div *ngFor="let room of rooms; let i = index" class="roomTab">
+    <div class="upperRow">
+      <a class="title link" [routerLink]="['/room-details', room.id]">
+        {{ room.name }}
+      </a>
+    </div>
+    <div class="middleRow">
+      <a class="link" [routerLink]="['/room-details', room.id]">
+        Click to see more information about {{ room.name }}.
+        <div class="icon"><img src="../assets/Arrow.svg" alt=""></div>
+      </a>
+    </div>
+  </div>-->
+
+
+</div>
+
+<!-- Load feature to add Rooms-->
+<app-add-room></app-add-room>

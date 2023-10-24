@@ -1,0 +1,282 @@
+<style>
+.flex-row .flex-gap {
+  display: flex;
+  gap: 1rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.mainContainer{
+  display: flex;
+    max-width: 62rem;
+    flex-wrap: wrap;
+}
+
+.controlButton.dashboard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 28rem; /* Updated width */
+  height: 33.75rem; /* Updated height */
+  padding: 0.5rem 1rem;
+  border-radius: 1vw;
+  margin: 0 0 1rem 1rem;
+  background-color: #242424;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.25);
+  background: linear-gradient(-30deg, #1E1E1E 75%, #545454 100%);
+  background: -webkit-linear-gradient(-30deg, #1E1E1E 75%, #545454 100%);
+  background: -moz-linear-gradient(-30deg, #1E1E1E 75%, #545454 100%);
+  background: -o-linear-gradient(-30deg, #1E1E1E 75%, #545454 100%);
+  background: linear-gradient(-30deg, #1E1E1E 75%, #545454 100%);
+  -webkit-transition: background 0.7s ease-out;
+  -moz-transition: background 0.7s ease-out;
+  -o-transition: background 0.7s ease-out;
+  transition: background 0.7s ease-out;
+  background-size: 300% 300%;
+  background-position-x: 100%;
+  background-position-y: 100%;
+  cursor: pointer;
+}
+
+.controlButton.dashboard:hover {
+  background-position-x: 0%;
+  background-position-y: 0%;
+}
+
+.controlButton.dashboard .upperRow {
+  align-self: flex-start;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.controlButton.dashboard .upperRow .settings {
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 50%;
+}
+
+.controlButton.dashboard .upperRow .settings:hover {
+  background-color: #D9D9D9;
+}
+
+.controlButton.dashboard .upperRow .settings:hover img {
+  filter: invert(100%) !important;
+}
+
+.controlButton.dashboard .upperRow .settings {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.controlButton.dashboard .upperRow .settings img {
+  height: 2rem;
+}
+
+.controlButton.dashboard .upperRow .icon {
+  height: 2rem;
+  width: 2rem;
+  background-color: #D9D9D9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  margin-top: 0.5rem;
+}
+
+.controlButton.dashboard .upperRow .icon img {
+  filter: invert(100%);
+}
+
+.controlButton.dashboard .upperRow img {
+  max-height: 90%;
+  filter: inherit(100%);
+}
+
+.controlButton.dashboard .middleRow {
+  flex: 1 0 auto;
+  text-align: middle;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.controlButton.dashboard .middleRow .title {
+  width: 70%;
+  margin-right: auto;
+  overflow-wrap: break-word;
+  font-size: 1.2rem;
+}
+
+.controlButton.dashboard .bottomRow {
+  width: 100%;
+  align-self: flex-end;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2rem;
+}
+
+.controlButton.dashboard .bottomRow .state {
+  font-size: 0.75rem;
+  opacity: 0.25;
+}
+
+.controlButton.dashboard .bottomRow .switch {
+  height: 0.75rem;
+  margin: auto 0 auto 0;
+}
+
+.controlButton.dashboard .switch {
+  display: inline-flex;
+  align-items: center;
+  height: 0.5rem;
+  margin: 0.5rem;
+}
+
+.controlButton.dashboard .switch input.toggle {
+  display: none;
+}
+
+.switch * {
+  transition: 0.7s !important;
+}
+
+.controlButton.dashboard .slider {
+  position: relative;
+  flex: 0 0 1rem;
+  height: max(0.85rem, 6px);
+  border-radius: 1rem;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  min-width: calc(0.85rem * 2.25);
+  border: #D9D9D9 solid 0.075rem;
+}
+
+.controlButton.dashboard .bubble {
+  height: calc(0.8rem * 0.9);
+  width: calc(0.8rem * 0.9);
+  background-color: #D9D9D9;
+  border-radius: 50%;
+  transition: all 0.3s;
+  margin-left: calc(0.8rem * 0.025);
+  margin-right: calc(0.8rem * 0.025);
+}
+
+.controlButton.dashboard .switch input.toggle:checked + .slider {
+  border: black solid 0.1rem;
+}
+
+.controlButton.dashboard .switch input.toggle:checked + .slider .bubble {
+  margin-left: auto;
+  background-color: black;
+}
+
+.controlButton.dashboard .middleRow .number{
+  font-size: 17rem;
+}
+
+.controlButton.dashboard .upperRow .title{
+  width: 100% !important;
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 1.5rem;
+  text-decoration: underline;
+  text-shadow: 0rem 0rem 1rem rgba(255, 255, 255, 0.75);
+}
+ 
+</style>  
+
+<div class="flex-row flex-gap mainContainer">
+<div class="controlButton dashboard">
+  <div class="upperRow">  
+    <div class="title">Number of Rooms</div>
+  </div>
+  <div class="middleRow">
+      <div class="number"> 
+
+        {{this.roomArr.length}}
+        
+        <!--{{room.fans.length + room.lights.length + room.roomWindows.length + room.doors.length}}-->
+      </div>
+  </div>
+      <div class="bottomRow">
+        <label class="description">
+        </label>
+      </div>
+  </div>
+
+  <div class="controlButton dashboard">
+    <div class="upperRow">  
+        <div class="title">Number of devices</div>
+    </div>
+    <div class="middleRow">
+        <div class="number"> {{this.deviceNumber}}<!--{{room.fans.length + room.lights.length + room.roomWindows.length + room.doors.length}}--></div>
+    </div>
+      <div class="bottomRow">
+          <label class="description">
+ 
+          </label>
+        </div>
+    </div>
+
+  </div>
+
+<!--
+<div class="controlButton.dashboard">
+    <div class="upperRow">
+      <div class="icon">
+        <img src="../assets/Bulb.svg" alt="">
+      </div>
+      <div class="settings">
+        <img src="../assets/Dots.svg" alt="">
+      </div>
+    </div>
+    <div class="middleRow">
+      <div class="title">
+        Blindr Intelligent Light
+      </div>
+    </div>
+    <div class="bottomRow">
+        <div class="state">Unlocked</div>
+        <div class="switch">
+        <label class="">
+          <input type="checkbox" class="toggle">
+          <div class="slider">
+            <div class="bubble"></div>
+          </div>
+        </label>
+        </div>
+    </div>
+  </div>
+ <div class="controlButton.dashboard">
+    <div class="upperRow">
+      <div class="icon">
+        <img src="../assets/Bulb.svg" alt="">
+      </div>
+      <div class="settings">
+        <img src="../assets/Dots.svg" alt="">
+      </div>
+    </div>
+    <div class="middleRow">
+      <div class="title">
+        Blindr Intelligent Light
+      </div>
+    </div>
+    <div class="bottomRow">
+        <div class="state">Unlocked</div>
+        <div class="switch">
+        <label class="">
+          <input type="checkbox" class="toggle">
+          <div class="slider">
+            <div class="bubble"></div>
+          </div>
+        </label>
+        </div>
+    </div>
+  </div>-->

@@ -1,0 +1,339 @@
+<div class="flex-column flex-gap">
+
+
+  <!-- load room data -->
+ <!-- <h3 style="display: none;">{{room.name}}:</h3>-->
+<!--
+  <div>
+    <p>Actions:</p>
+    <button type="button" (click)="deleteRoom()">Delete Room</button>
+    <button type="button" (click)="update()">Edit Room</button>
+    <button type="button" (click)="addValues()">Add Values</button>
+  </div>
+
+  <div>
+    <h1>{{room.name}}</h1>
+    <h2>{{room.name}} has {{room.size}}m<sup>2</sup>.</h2>
+  </div>-->
+
+<style>
+  .mainContainer{
+    display: flex;
+    max-width: 62rem;
+    flex-wrap: wrap;
+  }
+
+  .mainContainer{}
+</style>
+
+<div class="flex-row flex-gap mainContainer">
+
+<app-bar-chart [room_data]='room'></app-bar-chart>
+<app-line-chart [room_data_line]='room'></app-line-chart>
+<line-chart-co2 [room_data_line_co2]='room'></line-chart-co2>
+<!--<app-line-chart-co2 [room_data_line]='room'></app-line-chart-co2>-->
+
+
+  <!--<div *ngIf="room.doors.length > 0">
+    <h2>Doors</h2>
+    <h3>This room has {{room.doors.length}} doors.</h3>
+    <div *ngFor="let door of room.doors; let i = index">
+      <p>Door {{i + 1}}, open: {{door.open}}</p>
+    </div>
+  </div>-->
+
+  <!--<div *ngIf="room.roomWindows.length > 0">
+    <h2>Windows</h2>
+    <h3>This room has {{room.roomWindows.length}} windows.</h3>
+    <div *ngFor="let window of room.roomWindows; let i = index">
+      <p>Window {{i + 1}}, open: {{window.open}}</p>
+    </div>
+  </div>-->
+<!--
+  <div *ngIf="room.lights.length > 0">
+    <h2>Lights</h2>
+    <h3>This room has {{room.lights.length}} lights.</h3>
+    <div *ngFor="let light of room.lights; let i = index">
+      <p>Light {{i + 1}}, on: {{light.on}}</p>
+    </div>
+  </div>
+
+  <div *ngIf="room.fans.length > 0">
+    <h2>Fans</h2>
+    <h3>This room has {{room.fans.length}} fans.</h3>
+    <div *ngFor="let fan of room.fans; let i = index">
+      <p>Fan {{i + 1}}, on: {{fan.on}}</p>
+    </div>
+  </div>
+-->
+
+<ng-container *ngIf="room">
+  <ng-container  *ngIf="room?.roomWindows && room.roomWindows.length > 0" class="flex-row flex-gap">
+    <ng-container *ngFor="let roomWindow of room.roomWindows; let i = index">
+      <div class="controlButton">
+        <div class="upperRow">
+          <div class="icon">
+            <img src="../assets/Window.svg" alt="">
+          </div>
+          <div class="settings">
+            <img src="../assets/Dots.svg" alt="">
+          </div>
+        </div>
+        <div class="middleRow">
+          <div class="title">
+            {{"Window_" + roomWindow.id}}
+          </div>
+        </div>
+        <div class="bottomRow">
+            <div class="state"> {{ roomWindow.open ? 'open' : 'closed' }}</div>
+            <div class="switch">
+            <label class="">
+           
+              <input type="checkbox" class="toggle" [(ngModel)]="roomWindow.open" (change)="updateWindowState(roomWindow)">
+              <div class="slider" >
+                <div class="bubble"></div>
+              </div>
+            </label>
+            </div>
+        </div>
+      </div>
+
+    </ng-container>
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="room">
+  <ng-container  *ngIf="room?.roomWindows && room.doors.length > 0" class="flex-row flex-gap">
+    <ng-container *ngFor="let door of room.doors; let i = index">
+      <div class="controlButton">
+        <div class="upperRow">
+          <div class="icon">
+            <img src="../assets/Door.svg" alt="">
+          </div>
+          <div class="settings">
+            <img src="../assets/Dots.svg" alt="">
+          </div>
+        </div>
+        <div class="middleRow">
+          <div class="title">
+            {{"Door_" + door.id}}
+          </div>
+        </div>
+        <div class="bottomRow">
+            <div class="state"> {{ door.open ? 'open' : 'closed' }}</div>
+            <div class="switch">
+            <label class="">
+           
+              <input type="checkbox" class="toggle" [(ngModel)]="door.open" (change)="updateDoorState(door)">
+              <div class="slider" >
+                <div class="bubble"></div>
+              </div>
+            </label>
+            </div>
+        </div>
+      </div>
+
+    </ng-container>
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="room">
+  <ng-container  *ngIf="room?.roomWindows && room.fans.length > 0" class="flex-row flex-gap">
+    <ng-container *ngFor="let fan of room.fans; let i = index">
+      <div class="controlButton">
+        <div class="upperRow">
+          <div class="icon">
+            <img src="../assets/Fan.svg" alt="">
+          </div>
+          <div class="settings">
+            <img src="../assets/Dots.svg" alt="" (click)="removeFanFromRoom(fan)">
+          </div>
+        </div>
+        <div class="middleRow">
+          <div class="title">
+            {{"Fan_" + fan.id}}
+          </div>
+        </div>
+        <div class="bottomRow">
+            <div class="state"> {{ fan.open ? 'on' : 'off' }}</div>
+            <div class="switch">
+            <label class="">
+           
+              <input type="checkbox" class="toggle" [(ngModel)]="fan.open" (change)="updateFanState(fan)">
+              <div class="slider" >
+                <div class="bubble"></div>
+              </div>
+            </label>
+            </div>
+        </div>
+      </div>
+
+    </ng-container>
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="room">
+  <ng-container  *ngIf="room?.roomWindows && room.lights.length > 0" class="flex-row flex-gap">
+    <ng-container *ngFor="let light of room.lights; let i = index">
+      <div class="controlButton">
+        <div class="upperRow">
+          <div class="icon">
+            <img src="../assets/Bulb.svg" alt="">
+          </div>
+          <div class="settings">
+            <img src="../assets/Dots.svg" alt="">
+          </div>
+        </div>
+        <div class="middleRow">
+          <div class="title">
+            {{"Light_" + light.id}}
+          </div>
+        </div>
+        <div class="bottomRow">
+            <div class="state"> {{ light.open ? 'on' : 'off' }}</div>
+            <div class="switch">
+            <label class="">
+           
+              <input type="checkbox" class="toggle" [(ngModel)]="light.open" (change)="updateLightState(light)">
+              <div class="slider" >
+                <div class="bubble"></div>
+              </div>
+            </label>
+            </div>
+        </div>
+      </div>
+
+    </ng-container>
+  </ng-container>
+</ng-container>
+
+
+  
+  <div class="controlButton valueContainer">
+    <div class="upperRow">  
+      <div class="settings">
+        <img src="../assets/Dots.svg" alt="">
+      </div>
+    </div>
+    <div class="middleRow">
+        <div class="number" id="PeopleNumber">...</div>
+    </div>
+      <div class="bottomRow">
+          <label class="description">
+              People in room
+          </label>
+        </div>
+    </div>
+
+    <div class="controlButton valueContainer">
+      <div class="upperRow">  
+        <div class="settings">
+          <img src="../assets/Dots.svg" alt="">
+        </div>
+      </div>
+      <div class="middleRow">
+          <div class="number">{{(room?.fans?.length || 0) + (room?.lights?.length || 0) + (room?.roomWindows?.length || 0) + (room?.doors?.length || 0)}}</div>
+      </div>
+        <div class="bottomRow">
+            <label class="description">
+                Number of devices
+            </label>
+          </div>
+      </div>
+
+
+      <div class="controlButton addValues">
+        <div class="upperRow">
+        </div>
+        <div class="middleRow">
+            <div class="button" type="button" (click)="deleteRoom();">Delete Room</div>
+            <div class="button" type="button" (click)="update()">Add Devices</div>
+            <!--<div class="button" type="button" (click)="addValues()">Add Values</div>-->
+          </div>
+      </div>
+      
+     <!--<app-update-room></app-update-room>-->
+
+    
+    </div>
+
+
+<!-- Buttons to Add Devices-->
+<!--
+<div class="controlButton addDevice">
+  <div class="middleRow">
+      <div class="addDeviceButton" type="button" > 
+        <img src="../assets/Bulb.svg" alt="">
+      </div>
+      <div class="addDeviceButton" type="button" >
+        <img src="../assets/Fan.svg" alt="">
+      </div>
+      <div class="addDeviceButton" type="button" >
+        <img src="../assets/Door.svg" alt="">
+      </div>
+      <div class="addDeviceButton" type="button" >
+        <img src="../assets/Window.svg" alt="">
+      </div>
+  </div>
+  </div>-->
+
+<!-- Buttons to Update -->
+<!--
+<div class="container">
+  <div *ngIf="room.doors.length > 0">
+    <h1>Doors</h1>
+    <div class="flex">
+      <div *ngFor="let door of room.doors; let i = index" class="deviceTab">
+        <div class="upperRow">
+          <span class="title link" [routerLink]="['/remote-details', room.id]">
+            Door id: {{ door.id }}
+          </span>
+        </div>
+        <div class="middleRow">
+          <div class="icon"><img src="../assets/Door.svg" alt=""></div>
+          <div class="container">
+            <h3 class="status">Status: {{ door.open ? 'open' : 'closed' }}</h3>
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="door.open" [value]="door.open" (change)="updateRoom()">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+-->
+<!--
+  <div class="controlButton">
+    <div class="upperRow">
+      <div class="icon">
+        <img src="../assets/Bulb.svg" alt="">
+      </div>
+      <div class="settings">
+        <img src="../assets/Dots.svg" alt="">
+      </div>
+    </div>
+    <div class="middleRow">
+      <div class="title">
+        Blindr Intelligent Light
+      </div>
+    </div>
+    <div class="bottomRow">
+        <div class="state">Unlocked</div>
+        <div class="switch">
+        <label class="">
+          <input type="checkbox" class="toggle">
+          <div class="slider">
+            <div class="bubble"></div>
+          </div>
+        </label>
+        </div>
+    </div>
+  </div>
+-->
+
+
+</div>

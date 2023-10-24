@@ -1,0 +1,269 @@
+
+  <div class="roomTab">
+      <div class="editRoom">
+          <div class="upperRow">
+              <div class="inputField">
+                  <label>Room ID:</label>
+                  <input type="text" id="name" [(ngModel)]="room.name" placeholder="new Room">
+              </div>
+          </div>
+          
+          <div class="middleRow">
+              <div class="inputField">
+                  <label>Room Size in  m<sup>2</sup>:</label>
+                  <input type="number" id="size" [(ngModel)]="room.size" placeholder="0">
+              </div>
+             <!-- <div class="inputField">
+                  <label>Doors:</label>
+                  <input type="number"  placeholder="0">
+              </div>
+              <div class="inputField">
+                  <label>Windows:</label>
+                  <input type="number"  placeholder="0">
+              </div>
+              <div class="inputField">
+                  <label>Lights:</label>
+                  <input type="number"  placeholder="0">
+              </div>
+              <div class="inputField">
+                  <label>Fans:</label>
+                  <input type="number"  placeholder="0">
+              </div>-->
+          </div>
+         <div class="bottomRow">
+          <div class="button" type="button" label="Save" (click)="saveRoom()">Create Room</div>
+        </div>
+      </div>
+      <div class="detailsTab" style="display:none;">
+          <div class="title">Living Room     </div>
+          <div class="facts"><div class="left">ID:    </div><div class="right">2</div></div>
+          <div class="facts"><div class="left">Size:  </div><div class="right">2</div></div>
+          <div class="facts"><div class="left">Widows:</div><div class="right">2</div></div>
+          <div class="facts"><div class="left">Doors: </div><div class="right">2</div></div>
+          <div class="facts"><div class="left">Lights:</div><div class="right">2</div></div>
+          <div class="facts"><div class="left">Fans:  </div><div class="right">2</div></div>
+          
+          
+          <div class="button">Close Details</div>
+      </div>
+      <div class="mainTab" style="display:none;">
+          <div class="upperRow">
+          <div class="title">
+              room .name
+            </div>
+          </div>
+          <div class="middleRow">
+          <div class="link">Go to Room Dashboard <div class="icon"><img src="../assets/Arrow.svg" alt=""></div></div>
+          </div>
+          <div class="bottomRow">
+          <div class="roomActionButton"><div class="innerContainer">Load Details<div class="icon"><img src="../assets/Redirect.svg" alt=""></div></div>
+          </div>
+          
+          <div class="roomActionButton"><div class="innerContainer">Edit Data<div class="icon"><img src="../assets/Redirect.svg" alt=""></div></div>
+          </div>
+      </div>
+      </div>
+  </div>
+
+
+<!--
+<div class="roomTab">
+  <h1>Add a new room:</h1>
+  <div class="room_form">
+    <div class="flex-column flex-gap">
+      <h2>Room meta data</h2>
+      <div class="flex-column">
+        <label for="name">Room name</label>
+        <input type="text" id="name" [(ngModel)]="room.name">
+      </div>
+      <div class="flex-column">
+        <label for="name">Room size</label>
+        <input type="number" id="size" [(ngModel)]="room.size">
+      </div>
+    </div>
+
+    <div>
+      <h2>Doors: </h2>
+      <div class="flex-column flex-gap">
+        <label for="name">Door Status</label>
+        <div>
+          <label>Open</label><input type="radio" [(ngModel)]="door.open" [value]="true">
+        </div>
+        <div>
+          <label>Closed</label><input type="radio" [(ngModel)]="door.open" [value]="false">
+        </div>
+        <button type="button" (click)="addDoor()">Add Door</button>
+      </div>
+
+
+      <h3>New Doors: </h3>
+      <div *ngFor="let d of room.doors; let i = index">
+        <p>Door {{i + 1}}, open: {{d.open}}</p>
+      </div>
+    </div>
+
+    <div>
+      <h2>Windows: </h2>
+      <div class="flex-column flex-gap">
+        <label for="name">Window status</label>
+        <div>
+          <label>Open</label><input type="radio" [(ngModel)]="window.open" [value]="true">
+        </div>
+        <div>
+          <label>Closed</label><input type="radio" [(ngModel)]="window.open" [value]="false">
+        </div>
+        <button type="button" (click)="addWindow()">Add Window</button>
+      </div>
+
+
+      <h3>New Windows: </h3>
+      <div *ngFor="let w of room.roomWindows; let i = index">
+        <p>Window {{i + 1}}, open: {{w.open}}</p>
+      </div>
+    </div>
+
+    <div>
+      <h2>Lights: </h2>
+      <div class="flex-column flex-gap">
+        <label for="name">Lights</label>
+        <div>
+          <label>On</label><input type="radio" [(ngModel)]="light.on" [value]="true">
+        </div>
+        <div>
+          <label>Off</label><input type="radio" [(ngModel)]="light.on" [value]="false">
+        </div>
+        <button type="button" (click)="addLight()">Add Light</button>
+      </div>
+
+
+      <h3>New Lights: </h3>
+      <div *ngFor="let l of room.lights; let i = index">
+        <p>Light {{i + 1}}, on: {{l.on}}</p>
+      </div>
+    </div>
+
+    <div>
+      <h2>Fan: </h2>
+      <div class="flex-column flex-gap">
+        <label for="name">Fan status</label>
+        <div>
+          <label>On</label><input type="radio" [(ngModel)]="fan.on" [value]="true">
+        </div>
+        <div>
+          <label>Off</label><input type="radio" [(ngModel)]="fan.on" [value]="false">
+        </div>
+        <button type="button" (click)="addFan()">Add Fan</button>
+      </div>
+
+
+      <h3>New Fans: </h3>
+      <div *ngFor="let f of room.fans; let i = index">
+        <p>Fan {{i + 1}}, on: {{f.on}}</p>
+      </div>
+    </div>
+
+    <button type="button" label="Save" (click)="saveRoom()">Save Room</button>
+  </div>
+</div>
+
+
+
+
+<div class="roomTab">
+  <h1>Add a new room:</h1>
+  <div class="room_form">
+    <div class="flex-column flex-gap">
+      <h2>Room meta data</h2>
+      <div class="flex-column">
+        <label for="name">Room name</label>
+        <input type="text" id="name" [(ngModel)]="room.name">
+      </div>
+      <div class="flex-column">
+        <label for="name">Room size</label>
+        <input type="number" id="size" [(ngModel)]="room.size">
+      </div>
+    </div>
+
+    <div>
+      <h2>Doors: </h2>
+      <div class="flex-column flex-gap">
+        <label for="name">Door Status</label>
+        <div>
+          <label>Open</label><input type="radio" [(ngModel)]="door.open" [value]="true" name="doorStatus">
+        </div>
+        <div>
+          <label>Closed</label><input type="radio" [(ngModel)]="door.open" [value]="false" name="doorStatus">
+        </div>
+        <button type="button" (click)="addDoor()">Add Door</button>
+      </div>
+
+      <h3>New Doors: </h3>
+      <div *ngFor="let d of room.doors; let i = index">
+        <p>Door {{i + 1}}, open: {{d.open}}</p>
+      </div>
+    </div>
+
+    <div>
+      <h2>Windows: </h2>
+      <div class="flex-column flex-gap">
+        <label for="name">Window status</label>
+        <div>
+          <label>Open</label><input type="radio" [(ngModel)]="window.open" [value]="true" name="windowStatus">
+        </div>
+        <div>
+          <label>Closed</label><input type="radio" [(ngModel)]="window.open" [value]="false" name="windowStatus">
+        </div>
+        <button type="button" (click)="addWindow()">Add Window</button>
+      </div>
+
+
+      <h3>New Windows: </h3>
+      <div *ngFor="let w of room.roomWindows; let i = index">
+        <p>Window {{i + 1}}, open: {{w.open}}</p>
+      </div>
+    </div>
+
+    <div>
+      <h2>Lights: </h2>
+      <div class="flex-column flex-gap">
+        <label for="name">Lights</label>
+        <div>
+          <label>On</label><input type="radio" [(ngModel)]="light.on" [value]="true" name="lightStatus">
+        </div>
+        <div>
+          <label>Off</label><input type="radio" [(ngModel)]="light.on" [value]="false" name="lightStatus">
+        </div>
+        <button type="button" (click)="addLight()">Add Light</button>
+      </div>
+
+
+      <h3>New Lights: </h3>
+      <div *ngFor="let l of room.lights; let i = index">
+        <p>Light {{i + 1}}, on: {{l.on}}</p>
+      </div>
+    </div>
+
+    <div>
+      <h2>Fan: </h2>
+      <div class="flex-column flex-gap">
+        <label for="name">Fan status</label>
+        <div>
+          <label>On</label><input type="radio" [(ngModel)]="fan.on" [value]="true" name="fanStatus">
+        </div>
+        <div>
+          <label>Off</label><input type="radio" [(ngModel)]="fan.on" [value]="false" name="fanStatus">
+        </div>
+        <button type="button" (click)="addFan()">Add Fan</button>
+      </div>
+
+
+      <h3>New Fans: </h3>
+      <div *ngFor="let f of room.fans; let i = index">
+        <p>Fan {{i + 1}}, on: {{f.on}}</p>
+      </div>
+    </div>
+
+    <button type="button" label="Save" (click)="saveRoom()">Save Room</button>
+  </div>
+</div>
+-->
