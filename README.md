@@ -1,18 +1,17 @@
-[Project_Documentation_Team03_.docx](https://github.com/jku-win-se/teaching.ss23prse.smartroom.team3/files/11984894/Project_Documentation_Team03_.docx)# PR Software Engineering SS 23 Team 3
-## Thema: Digital Twin of a Smart Room 
-#### App-Name: smartHome
-Die Anwendung "SmartHome" soll als digitaler Zwilling eines Raumes dienen, dessen Raumausstattung wie Türen, Fenster, Beleuchtung und Ventilatoren aus der Ferne gesteuert werden können.
+257.130, KT Communications Engineering (Kompetenztraining), Thomas Jost, 2023W
+Team 9
+## Thema: Verteilte Systeme
+#### App-Name: smartHome 2.0
+Die Anwendung "SmartHome" soll als digitaler Zwilling eines Raumes dienen, dessen Raumausstattung wie Türen, Fenster, Beleuchtung und Ventilatoren aus der Ferne gesteuert werden können. 
 
 ## Projektteam
 | Matrikelnumer  | Vorname |  Nachname  | E-mail | Github User |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
 | K11926495  | Henrique  | Ventura Tuerpe  | henriqueevetu@live.com | henriquevetu  |
-| K12006656  | Laura | Bayer  | laurabayer@yahoo.de | laurabayer1 |
-| K12105433  | Julian | Fuchs  | julian.fuchs0701@gmail.com | FuchsJulianGit  |
-| K12043518  | Manuel | Wiltz  | manuelwiltz@gmail.com | manuelwiltz |
+| K12043365  | Lukas  | Knogler  | |  |
+| K11942148  | Katarina | Ivanov  |  |   |
 
-## Projekdokumentation 
-[Project_Documentation_Team03_.docx](https://github.com/jku-win-se/teaching.ss23prse.smartroom.team3/files/11984899/Project_Documentation_Team03_.docx)
+
 
 ## Use Cases (Wie in der Projektdokumentation aufgelistet)
 [UC01.docx](https://github.com/jku-win-se/teaching.ss23prse.smartroom.team3/files/11988831/UC01.docx)
@@ -40,11 +39,6 @@ Die Anwendung "SmartHome" soll als digitaler Zwilling eines Raumes dienen, desse
 [UC14.docx](https://github.com/jku-win-se/teaching.ss23prse.smartroom.team3/files/11988846/UC14.docx)
 
 [UC15.docx](https://github.com/jku-win-se/teaching.ss23prse.smartroom.team3/files/11988847/UC15.docx)
-
-
-
-## Prototyp
-[SmartHome Prototyp](https://www.figma.com/proto/4ABS1OvW4rhJv6nCqljPL8/PR-SE---SmartHome?node-id=1-7&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=1%3A7)
 
 
 
