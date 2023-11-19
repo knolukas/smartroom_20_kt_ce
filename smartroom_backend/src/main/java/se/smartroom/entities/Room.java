@@ -52,6 +52,7 @@ public class Room {
     public Room(Class<RoomRepository> roomRepositoryClass) {
     }
 
+
     public Room(String name, int size) {
         this(name, size, Collections.emptyList(), Collections.emptyList(),
                 Collections.emptyList(), Collections.emptyList(),

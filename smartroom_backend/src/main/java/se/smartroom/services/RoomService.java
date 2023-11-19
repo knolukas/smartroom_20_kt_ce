@@ -12,9 +12,12 @@ import se.smartroom.entities.environment.EnvironmentData;
 import se.smartroom.entities.people.PeopleData;
 import se.smartroom.entities.physicalDevice.Fenster;
 
+import se.smartroom.entities.physicalDevice.Light;
 import se.smartroom.repositories.EnvironmentDataRepository;
 import se.smartroom.repositories.RoomRepository;
+import se.smartroom.services.LIFXApi.LIFXApi;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -28,7 +31,7 @@ import java.util.stream.Collectors;
 public class RoomService {
 
     @Autowired
-    private RoomRepository repository;
+    private static RoomRepository repository;
 
     @Autowired
     private EnvironmentDataRepository environmentDataRepository;
@@ -264,6 +267,85 @@ public class RoomService {
         }
     }
 
+    public Room findRoomById(int roomId) {
+        return repository.findById(roomId).orElse(null);
+    }
+
+
+    @Autowired
+    private LIFXApi lifxApi; // Assuming you have a LIFXApi
+
+    public void turnOnLights(int roomId, String label) throws IOException {
+        // Retrieve the room from the database
+        Room room = repository.findById(roomId).orElse(null);
+
+        if (room != null) {
+            // Assuming that the lights are stored in the 'lights' property of the Room class
+            List<Light> lights = room.getLights();
+
+            // Turn on each light using the LIFX API
+            for (Light light : lights) {
+                if (light.getLabel()==label) lifxApi.turnOnLight(roomId,label);
+            }
+
+            // Save the updated room with lights turned on
+            repository.save(room);
+        } else {
+            // Handle the case where the room is not found
+            System.out.println("Room not found with ID: " + roomId);
+        }
+    }
+
+    public void turnOffLights(int roomId, String label) throws IOException {
+        Room room = repository.findById(roomId).orElse(null);
+
+        if (room != null) {
+            // Assuming that the lights are stored in the 'lights' property of the Room class
+            List<Light> lights = room.getLights();
+
+            // Turn on each light using the LIFX API
+            for (Light light : lights) {
+                if (light.getLabel()==label) lifxApi.turnOffLight(roomId,label);
+            }
+
+            // Save the updated room with lights turned on
+            repository.save(room);
+        } else {
+            // Handle the case where the room is not found
+            System.out.println("Room not found with ID: " + roomId);
+            // Add appropriate error handling or logging based on your application's needs
+        }
+    }
+
+    public static Light getLightSelector(int roomId, String label) {
+        // Retrieve the room from the database
+        Room room = repository.findById(roomId).orElse(null);
+
+        if (room != null) {
+            // Assuming that the lights are stored in the 'lights' property of the Room class
+            List<Light> lights = room.getLights();
+
+            // Find the light with the specified ID
+            Optional<Light> optionalLight = lights.stream().filter(light -> light.getLabel() == label).findFirst();
+
+            if (optionalLight.isPresent()) {
+                // Assuming that Light class has a method to get its selector
+                return optionalLight.get();
+            } else {
+                // Handle the case where the light with the specified ID is not found
+                System.out.println("Light not found with label: " + label);
+            }
+        } else {
+            // Handle the case where the room is not found
+            System.out.println("Room not found with ID: " + roomId);
+        }
+
+        return null;
+    }
+
+
+
+
 
     /**
      *
@@ -291,5 +373,6 @@ public class RoomService {
     public Room getRoomById(int id) {
         return repository.findById(id).orElse(null);
     }
+
 
 }

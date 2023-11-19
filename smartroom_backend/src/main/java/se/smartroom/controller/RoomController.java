@@ -2,6 +2,8 @@ package se.smartroom.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
@@ -79,6 +81,28 @@ public class RoomController {
         csvWriter.close();
 
     }
+
+    @PostMapping("/room/{id}/lights/on")
+    public ResponseEntity<String> turnOnLights(@PathVariable int roomId, @RequestParam String lightLabel) {
+        try {
+            roomService.turnOnLights(roomId, lightLabel);
+            return ResponseEntity.ok("Lights turned on successfully");
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to turn on lights: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/room/{id}/lights/off")
+    public ResponseEntity<String> turnOffLights(@PathVariable int roomId, @RequestParam String lightLabel) {
+        try {
+            roomService.turnOffLights(roomId, lightLabel);
+            return ResponseEntity.ok("Lights turned off successfully");
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to turn off lights: " + e.getMessage());
+        }
+    }
+
+
 
 }
 

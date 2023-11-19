@@ -13,6 +13,16 @@ public class Light extends PhysicalDevice {
     @GeneratedValue
     private int id;
 
+    private String label;
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
     public Light() {
     }
 
@@ -40,4 +50,7 @@ public class Light extends PhysicalDevice {
                 ", on=" + super.isOpen() +
                 '}';
     }
+
+
+
 }
