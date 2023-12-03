@@ -83,15 +83,15 @@ public class RoomController {
     }
 
     @PostMapping("/room/{id}/lights/on")
-    public ResponseEntity<String> turnOnLights(@PathVariable int roomId, @RequestParam String lightLabel) {
+    public ResponseEntity<String> turnOnLights(@PathVariable int roomId, @RequestParam String lightLabel,@RequestParam String token) {
         try {
-            roomService.turnOnLights(roomId, lightLabel);
+            roomService.turnOnLights(roomId, lightLabel,token);
             return ResponseEntity.ok("Lights turned on successfully");
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to turn on lights: " + e.getMessage());
         }
     }
-
+/*
     @PostMapping("/room/{id}/lights/off")
     public ResponseEntity<String> turnOffLights(@PathVariable int roomId, @RequestParam String lightLabel) {
         try {
@@ -102,6 +102,8 @@ public class RoomController {
         }
     }
 
+
+ */
 
 
 }

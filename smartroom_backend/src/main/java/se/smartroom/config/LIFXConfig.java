@@ -1,9 +1,8 @@
 package se.smartroom.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import se.smartroom.services.LIFXApi.LIFXApi;
+import se.smartroom.entities.LIFXApi.LIFXApi;
 
 @Configuration
 public class LIFXConfig {

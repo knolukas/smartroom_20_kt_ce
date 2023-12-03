@@ -10,13 +10,11 @@ import se.smartroom.entities.physicalDevice.Fenster;
 import se.smartroom.entities.physicalDevice.Fan;
 import se.smartroom.entities.physicalDevice.Light;
 import se.smartroom.repositories.RoomRepository;
+import se.smartroom.entities.LIFXApi.LIFXApi;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 @Entity
 public class Room {
@@ -47,6 +45,15 @@ public class Room {
 
     @OneToMany(cascade = CascadeType.ALL)
     public List<PeopleData> peopleData;
+
+    private static RoomRepository repository;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "lifx_api_id", referencedColumnName = "id") // Assuming "id" is the primary key in LIFXApi
+    private LIFXApi apiInstance;
+
+
+    //public Room (LIFXApi apiInstance) {this.apiInstance=apiInstance;}
 
     //For testing - DO NOT DELETE
     public Room(Class<RoomRepository> roomRepositoryClass) {
@@ -81,6 +88,29 @@ public class Room {
         this.temperatureData = temperatureData;
         this.peopleData = peopleData;
     }
+/*
+    //with API
+    public Room(String name, int size, List<Door> doors, List<Fenster> roomWindows, List<Light> lights,
+                List<Fan> fans, List<Co2SensorData> co2SensorData, List<TemperatureData> temperatureData,
+                List<PeopleData> peopleData, LIFXApi apiInstance
+    ) {
+        while (temperatureData.size() >= 200) {
+            temperatureData.remove(0); // Remove the oldest value if the list size exceeds 200
+        }
+
+        this.name = name;
+        this.size = size;
+        this.doors = doors;
+        this.roomWindows = roomWindows;
+        this.lights = lights;
+        this.fans = fans;
+        this.co2SensorData = co2SensorData;
+        this.temperatureData = temperatureData;
+        this.peopleData = peopleData;
+        this.apiInstance = apiInstance;
+    }
+
+ */
 
     public Room() {
     }
@@ -188,6 +218,21 @@ public class Room {
         return Objects.hash(id, name, size, doors, roomWindows, lights, fans, co2SensorData, temperatureData, peopleData);
     }
 
+    public Room findRoomById(int roomId) {
+        return repository.findById(roomId).orElse(null);
+    }
+
+    public String getApiToken() {
+        return apiInstance.getApiToken();
+    }
+
+    public void setApiInstanceToken(String token) {
+        apiInstance.setApiToken(token);
+    }
+    public void setApiInstance(LIFXApi apiInstance) {
+        this.apiInstance=apiInstance;
+    }
+
     @Override
     public String toString() {
         return "Room{" +
@@ -203,5 +248,6 @@ public class Room {
                 ", peopleData=" + peopleData +
                 '}';
     }
+
 
 }

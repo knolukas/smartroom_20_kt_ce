@@ -1,6 +1,8 @@
 package se.smartroom.services;
 
 import jakarta.transaction.Transactional;
+import org.asynchttpclient.AsyncHttpClient;
+import org.asynchttpclient.DefaultAsyncHttpClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -15,7 +17,7 @@ import se.smartroom.entities.physicalDevice.Fenster;
 import se.smartroom.entities.physicalDevice.Light;
 import se.smartroom.repositories.EnvironmentDataRepository;
 import se.smartroom.repositories.RoomRepository;
-import se.smartroom.services.LIFXApi.LIFXApi;
+import se.smartroom.entities.LIFXApi.LIFXApi;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -275,39 +277,65 @@ public class RoomService {
     @Autowired
     private LIFXApi lifxApi; // Assuming you have a LIFXApi
 
-    public void turnOnLights(int roomId, String label) throws IOException {
+    public void turnOnLights(int roomId, String label, String token) throws IOException {
         // Retrieve the room from the database
         Room room = repository.findById(roomId).orElse(null);
+        //String token = room.getApiToken();
 
-        if (room != null) {
-            // Assuming that the lights are stored in the 'lights' property of the Room class
+        if (room != null && token != null) {
+            // Token is valid, proceed to control lights
             List<Light> lights = room.getLights();
 
-            // Turn on each light using the LIFX API
             for (Light light : lights) {
-                if (light.getLabel()==label) lifxApi.turnOnLight(roomId,label);
-            }
+                if (light.getLabel()==label) {
+                    AsyncHttpClient client = new DefaultAsyncHttpClient();
+                    client.prepare("PUT", "https://api.lifx.com/v1/lights/" + label + "/state")
+                            .setHeader("accept", "text/plain")
+                            .setHeader("content-type", "application/json")
+                            .setHeader("Authorization", token)
+                            .setBody("{\"duration\":1,\"fast\":false,\"power\":\"on\"}") //only difference is the on here
+                            .execute()
+                            .toCompletableFuture()
+                            .thenAccept(System.out::println)
+                            .join();
 
+                    client.close();
+                }
+            }
             // Save the updated room with lights turned on
             repository.save(room);
         } else {
-            // Handle the case where the room is not found
-            System.out.println("Room not found with ID: " + roomId);
+            // Handle invalid token or room not found
+            System.out.println("Invalid token or Room not found with ID: " + roomId);
+            // Add appropriate error handling or logging based on your application's needs
         }
     }
-
+/*
     public void turnOffLights(int roomId, String label) throws IOException {
         Room room = repository.findById(roomId).orElse(null);
+        String token = room.getApiToken();
 
-        if (room != null) {
+        if (room != null && token != null) {
             // Assuming that the lights are stored in the 'lights' property of the Room class
             List<Light> lights = room.getLights();
 
             // Turn on each light using the LIFX API
             for (Light light : lights) {
-                if (light.getLabel()==label) lifxApi.turnOffLight(roomId,label);
-            }
+                if (light.getLabel()==label) {
+                    AsyncHttpClient client = new DefaultAsyncHttpClient();
+                    client.prepare("PUT", "https://api.lifx.com/v1/lights/" + label + "/state")
+                            .setHeader("accept", "text/plain")
+                            .setHeader("content-type", "application/json")
+                            .setHeader("Authorization", token)
+                            .setBody("{\"duration\":1,\"fast\":false,\"power\":\"off\"}") //only difference is the off here
+                            .execute()
+                            .toCompletableFuture()
+                            .thenAccept(System.out::println)
+                            .join();
 
+                    client.close();
+                }
+            }
             // Save the updated room with lights turned on
             repository.save(room);
         } else {
@@ -316,6 +344,8 @@ public class RoomService {
             // Add appropriate error handling or logging based on your application's needs
         }
     }
+
+ */
 
     public static Light getLightSelector(int roomId, String label) {
         // Retrieve the room from the database
