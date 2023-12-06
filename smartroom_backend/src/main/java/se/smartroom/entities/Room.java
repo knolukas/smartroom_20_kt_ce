@@ -88,7 +88,7 @@ public class Room {
         this.temperatureData = temperatureData;
         this.peopleData = peopleData;
     }
-/*
+
     //with API
     public Room(String name, int size, List<Door> doors, List<Fenster> roomWindows, List<Light> lights,
                 List<Fan> fans, List<Co2SensorData> co2SensorData, List<TemperatureData> temperatureData,
@@ -110,7 +110,7 @@ public class Room {
         this.apiInstance = apiInstance;
     }
 
- */
+
 
     public Room() {
     }
@@ -162,6 +162,10 @@ public class Room {
         //Correct Value arrives
         //System.out.println(lights);
         this.lights = lights;
+    }
+
+    public void addLight(Light light){
+        this.lights.add(light);
     }
 
     public List<Fan> getFans() {

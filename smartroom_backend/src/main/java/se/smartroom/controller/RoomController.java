@@ -9,6 +9,7 @@ import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 import se.smartroom.entities.Room;
+import se.smartroom.entities.physicalDevice.Light;
 import se.smartroom.services.RoomService;
 
 import java.io.IOException;
@@ -83,27 +84,32 @@ public class RoomController {
     }
 
     @PostMapping("/room/{id}/lights/on")
-    public ResponseEntity<String> turnOnLights(@PathVariable int roomId, @RequestParam String lightLabel,@RequestParam String token) {
+    public ResponseEntity<String> turnOnLights(@PathVariable int id, @RequestParam String lightLabel,@RequestParam String token) {
         try {
-            roomService.turnOnLights(roomId, lightLabel,token);
+            roomService.turnOnLights(id, lightLabel,token);
             return ResponseEntity.ok("Lights turned on successfully");
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to turn on lights: " + e.getMessage());
         }
     }
-/*
+
     @PostMapping("/room/{id}/lights/off")
-    public ResponseEntity<String> turnOffLights(@PathVariable int roomId, @RequestParam String lightLabel) {
+    public ResponseEntity<String> turnOffLights(@PathVariable int id, @RequestParam String lightLabel, @RequestParam String token) {
         try {
-            roomService.turnOffLights(roomId, lightLabel);
+            roomService.turnOffLights(id, lightLabel, token);
             return ResponseEntity.ok("Lights turned off successfully");
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to turn off lights: " + e.getMessage());
         }
     }
 
+    @PostMapping("/room/{id}/add_light")
+    public ResponseEntity<String> addLight(@PathVariable int id, @RequestParam String label, @RequestParam int light_id){
+        Light newLight = new Light(light_id, false, label);
+        roomService.getRoomById(id).addLight(newLight);
+        return ResponseEntity.ok("Added new light id:" + newLight.getId());
+    }
 
- */
 
 
 }

@@ -30,9 +30,15 @@ public class Light extends PhysicalDevice {
         super(open);
     }
 
-    public Light(int id, boolean open) {
+    public Light(int id, boolean open){
         super(open);
         this.id = id;
+    }
+
+    public Light(int id, boolean open, String label) {
+        super(open);
+        this.id = id;
+        this.label = label;
     }
 
     public int getId() {

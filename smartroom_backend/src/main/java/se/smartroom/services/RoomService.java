@@ -289,7 +289,7 @@ public class RoomService {
             List<Light> lights = room.getLights();
 
             for (Light light : lights) {
-                if (light.getLabel()==label) {
+                if (light.getLabel().equals(label)) {
                     AsyncHttpClient client = new DefaultAsyncHttpClient();
                     client.prepare("PUT", "https://api.lifx.com/v1/lights/" + label + "/state")
                             .setHeader("accept", "text/plain")
@@ -312,10 +312,11 @@ public class RoomService {
             // Add appropriate error handling or logging based on your application's needs
         }
     }
-/*
-    public void turnOffLights(int roomId, String label) throws IOException {
+
+    public void turnOffLights(int roomId, String label, String token) throws IOException {
         Room room = repository.findById(roomId).orElse(null);
-        String token = room.getApiToken();
+        assert room != null;
+        //String token = room.getApiToken();
 
         if (room != null && token != null) {
             // Assuming that the lights are stored in the 'lights' property of the Room class
@@ -323,7 +324,7 @@ public class RoomService {
 
             // Turn on each light using the LIFX API
             for (Light light : lights) {
-                if (light.getLabel()==label) {
+                if (light.getLabel().equals(label)) {
                     AsyncHttpClient client = new DefaultAsyncHttpClient();
                     client.prepare("PUT", "https://api.lifx.com/v1/lights/" + label + "/state")
                             .setHeader("accept", "text/plain")
@@ -347,7 +348,7 @@ public class RoomService {
         }
     }
 
- */
+
 
     public Light getLightSelector(int roomId, String label) {
         // Retrieve the room from the database
