@@ -33,13 +33,16 @@ import java.util.stream.Collectors;
 public class RoomService {
 
     @Autowired
-    private static RoomRepository repository;
+    private RoomRepository repository;
 
     @Autowired
     private EnvironmentDataRepository environmentDataRepository;
 
     @Value("${body.heat}")
     public double bodyHeat;
+
+    @Autowired
+    private LIFXApi lifxApi; // Assuming you have a LIFXApi
 
     public RoomService(RoomRepository mockRoomRepository) {
         repository = mockRoomRepository;
@@ -192,90 +195,89 @@ public class RoomService {
      * of people in the room, the outside temperature and the number of open
      * windows, running fans.
      */
-    @Transactional
-    @Scheduled(initialDelay = 7000, fixedRate = 5000)
-    public void scheduledIntervalCalculation() {
-        List<Room> rooms = repository.findAll();
-        EnvironmentData environmentData = environmentDataRepository.findAll().get(0);
-        if (!rooms.isEmpty()) {
-            List<Room> updatedRooms = rooms.stream().map(room -> {
-                int numOpenWindows = 0;
-                if (!room.getRoomWindows().isEmpty()) {
-                    numOpenWindows = room.getRoomWindows().stream().filter(Fenster::isOpen).toList().size();
-                }
-                int numPeople = 1;
-                if (room.getPeopleData().size() > 0) {
-                    numPeople = room.getPeopleData().get(room.getPeopleData().size() - 1).getCount();
-                }
-                double temperatureAdjustment = 0.0;
-
-                double co2Adjustment = 0.0;
-                if (numPeople > 0) {
-                    co2Adjustment += 1.0;
-                } else {
-                    co2Adjustment -= 1.0;
-                }
-                double latestCo2Value = 0.0;
-                if (room.getCo2SensorData().size() > 0) {
-                    latestCo2Value = room.getCo2SensorData().get(room.getCo2SensorData().size() - 1).getcO2value();
-                }
-                double newCo2Value = latestCo2Value + co2Adjustment;
-
-                double newTemperatureAdjustment = calculateTemperatureChange(numOpenWindows, numPeople, this.bodyHeat, environmentData.getOutsideTemperature(), room.getSize());
-
-                double newTemperature = environmentData.getOutsideTemperature();
-                if (newTemperatureAdjustment > 0) {
-                    newTemperature += newTemperatureAdjustment;
-                } else {
-                    newTemperature -= newTemperatureAdjustment;
-                }
-
-
-                if( room.peopleData.size() <= 0) {
-                    room.peopleData.add(new PeopleData(Date.valueOf(LocalDate.now()), new Random().nextInt(5 + 1)));
-                }else{
-                        var count = room.peopleData.get(room.peopleData.size() - 1).getCount();
-
-                        int value = new Random().nextInt(100) + 1;
-
-                        if (value > 90 || count <= 1) {
-                            room.peopleData.get(room.peopleData.size() - 1).setCount(count + 1);
-                        } else if (value < 10) {
-                            room.peopleData.get(room.peopleData.size() - 1).setCount(count - 1);
-                        }
-
-                        room.setPeopleData(room.getPeopleData());
-                }
-
-
-
-
-                Date timestamp = new Date(System.currentTimeMillis());
-                TemperatureData newTemperatureData = new TemperatureData();
-                newTemperatureData.setTemperatureValue(newTemperature);
-                newTemperatureData.setTimestamp(timestamp);
-                Co2SensorData co2SensorData = new Co2SensorData();
-                co2SensorData.setcO2value(newCo2Value);
-                co2SensorData.setTimestamp(timestamp);
-                List<TemperatureData> roomsTempData = room.getTemperatureData();
-                roomsTempData.add(newTemperatureData);
-                room.setTemperatureData(roomsTempData);
-                List<Co2SensorData> roomsC02Data = room.getCo2SensorData();
-                roomsC02Data.add(co2SensorData);
-                room.setCo2SensorData(roomsC02Data);
-                return room;
-            }).collect(Collectors.toList());
-            repository.saveAll(updatedRooms);
-        }
-    }
+//    @Transactional
+//    @Scheduled(initialDelay = 7000, fixedRate = 5000)
+//    public void scheduledIntervalCalculation() {
+//        List<Room> rooms = repository.findAll();
+//        EnvironmentData environmentData = environmentDataRepository.findAll().get(0);
+//        if (!rooms.isEmpty()) {
+//            List<Room> updatedRooms = rooms.stream().map(room -> {
+//                int numOpenWindows = 0;
+//                if (!room.getRoomWindows().isEmpty()) {
+//                    numOpenWindows = room.getRoomWindows().stream().filter(Fenster::isOpen).toList().size();
+//                }
+//                int numPeople = 1;
+//                if (room.getPeopleData().size() > 0) {
+//                    numPeople = room.getPeopleData().get(room.getPeopleData().size() - 1).getCount();
+//                }
+//                double temperatureAdjustment = 0.0;
+//
+//                double co2Adjustment = 0.0;
+//                if (numPeople > 0) {
+//                    co2Adjustment += 1.0;
+//                } else {
+//                    co2Adjustment -= 1.0;
+//                }
+//                double latestCo2Value = 0.0;
+//                if (room.getCo2SensorData().size() > 0) {
+//                    latestCo2Value = room.getCo2SensorData().get(room.getCo2SensorData().size() - 1).getcO2value();
+//                }
+//                double newCo2Value = latestCo2Value + co2Adjustment;
+//
+//                double newTemperatureAdjustment = calculateTemperatureChange(numOpenWindows, numPeople, this.bodyHeat, environmentData.getOutsideTemperature(), room.getSize());
+//
+//                double newTemperature = environmentData.getOutsideTemperature();
+//                if (newTemperatureAdjustment > 0) {
+//                    newTemperature += newTemperatureAdjustment;
+//                } else {
+//                    newTemperature -= newTemperatureAdjustment;
+//                }
+//
+//
+//                if( room.peopleData.size() <= 0) {
+//                    room.peopleData.add(new PeopleData(Date.valueOf(LocalDate.now()), new Random().nextInt(5 + 1)));
+//                }else{
+//                        var count = room.peopleData.get(room.peopleData.size() - 1).getCount();
+//
+//                        int value = new Random().nextInt(100) + 1;
+//
+//                        if (value > 90 || count <= 1) {
+//                            room.peopleData.get(room.peopleData.size() - 1).setCount(count + 1);
+//                        } else if (value < 10) {
+//                            room.peopleData.get(room.peopleData.size() - 1).setCount(count - 1);
+//                        }
+//
+//                        room.setPeopleData(room.getPeopleData());
+//                }
+//
+//
+//
+//
+//                Date timestamp = new Date(System.currentTimeMillis());
+//                TemperatureData newTemperatureData = new TemperatureData();
+//                newTemperatureData.setTemperatureValue(newTemperature);
+//                newTemperatureData.setTimestamp(timestamp);
+//                Co2SensorData co2SensorData = new Co2SensorData();
+//                co2SensorData.setcO2value(newCo2Value);
+//                co2SensorData.setTimestamp(timestamp);
+//                List<TemperatureData> roomsTempData = room.getTemperatureData();
+//                roomsTempData.add(newTemperatureData);
+//                room.setTemperatureData(roomsTempData);
+//                List<Co2SensorData> roomsC02Data = room.getCo2SensorData();
+//                roomsC02Data.add(co2SensorData);
+//                room.setCo2SensorData(roomsC02Data);
+//                return room;
+//            }).collect(Collectors.toList());
+//            repository.saveAll(updatedRooms);
+//        }
+//    }
 
     public Room findRoomById(int roomId) {
         return repository.findById(roomId).orElse(null);
     }
 
 
-    @Autowired
-    private LIFXApi lifxApi; // Assuming you have a LIFXApi
+
 
     public void turnOnLights(int roomId, String label, String token) throws IOException {
         // Retrieve the room from the database
@@ -347,7 +349,7 @@ public class RoomService {
 
  */
 
-    public static Light getLightSelector(int roomId, String label) {
+    public Light getLightSelector(int roomId, String label) {
         // Retrieve the room from the database
         Room room = repository.findById(roomId).orElse(null);
 
