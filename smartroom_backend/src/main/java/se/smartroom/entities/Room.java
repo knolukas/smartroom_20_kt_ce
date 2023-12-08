@@ -48,9 +48,9 @@ public class Room {
 
     private static RoomRepository repository;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "lifx_api_id", referencedColumnName = "id") // Assuming "id" is the primary key in LIFXApi
+    @OneToOne(mappedBy = "room", cascade = CascadeType.ALL)
     private LIFXApi apiInstance;
+
 
 
     //public Room (LIFXApi apiInstance) {this.apiInstance=apiInstance;}
@@ -227,9 +227,15 @@ public class Room {
     }
 
     public String getApiToken() {
+        if (apiInstance == null) {
+            apiInstance = new LIFXApi(); // instantiate LIFXApi if it's null during deserialization
+        }
         return apiInstance.getApiToken();
     }
 
+    public LIFXApi getApiInstance() {
+        return apiInstance;
+    }
     public void setApiInstanceToken(String token) {
         apiInstance.setApiToken(token);
     }

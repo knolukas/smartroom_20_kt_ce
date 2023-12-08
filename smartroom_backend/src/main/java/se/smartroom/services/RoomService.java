@@ -279,7 +279,7 @@ public class RoomService {
 
 
 
-    public void turnOnLights(int roomId, String label, String token) throws IOException {
+    public void turnOnLights(int roomId, String label, String lightId, String token) throws IOException {
         // Retrieve the room from the database
         Room room = repository.findById(roomId).orElse(null);
         //String token = room.getApiToken();
@@ -290,12 +290,13 @@ public class RoomService {
 
             for (Light light : lights) {
                 if (light.getLabel().equals(label)) {
+                    light.setOn(true);
                     AsyncHttpClient client = new DefaultAsyncHttpClient();
-                    client.prepare("PUT", "https://api.lifx.com/v1/lights/" + label + "/state")
+                    client.prepare("PUT", "https://api.lifx.com/v1/lights/" + lightId + "/state")
                             .setHeader("accept", "text/plain")
                             .setHeader("content-type", "application/json")
-                            .setHeader("Authorization", token)
-                            .setBody("{\"duration\":1,\"fast\":false,\"power\":\"on\"}") //only difference is the on here
+                            .setHeader("Authorization","Bearer "+ token)
+                            .setBody("{\"duration\":1,\"fast\":true,\"power\":\"on\"}") //only difference is the on here
                             .execute()
                             .toCompletableFuture()
                             .thenAccept(System.out::println)
@@ -313,7 +314,7 @@ public class RoomService {
         }
     }
 
-    public void turnOffLights(int roomId, String label, String token) throws IOException {
+    public void turnOffLights(int roomId, String label, String lightId, String token) throws IOException {
         Room room = repository.findById(roomId).orElse(null);
         assert room != null;
         //String token = room.getApiToken();
@@ -324,13 +325,14 @@ public class RoomService {
 
             // Turn on each light using the LIFX API
             for (Light light : lights) {
-                if (light.getLabel().equals(label)) {
+                if (light.getLabel().equals(label)&&light.isOn()==true) {
+                    light.setOn(false);
                     AsyncHttpClient client = new DefaultAsyncHttpClient();
-                    client.prepare("PUT", "https://api.lifx.com/v1/lights/" + label + "/state")
+                    client.prepare("PUT", "https://api.lifx.com/v1/lights/" + lightId + "/state")
                             .setHeader("accept", "text/plain")
                             .setHeader("content-type", "application/json")
-                            .setHeader("Authorization", token)
-                            .setBody("{\"duration\":1,\"fast\":false,\"power\":\"off\"}") //only difference is the off here
+                            .setHeader("Authorization","Bearer "+ token)
+                            .setBody("{\"duration\":1,\"fast\":true,\"power\":\"off\"}") //only difference is the off here
                             .execute()
                             .toCompletableFuture()
                             .thenAccept(System.out::println)

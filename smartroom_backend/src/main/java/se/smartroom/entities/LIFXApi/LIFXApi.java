@@ -1,9 +1,7 @@
 package se.smartroom.entities.LIFXApi;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import se.smartroom.entities.Room;
 //import org.springframework.beans.factory.annotation.Value;
 
 
@@ -15,6 +13,10 @@ public class LIFXApi {
     @Id
     @GeneratedValue
     private int id;
+
+    @OneToOne
+    @JoinColumn(name = "room_id", referencedColumnName = "id")
+    private Room room;
 
     public LIFXApi(String apiToken) {
         this.apiToken = apiToken;
@@ -41,5 +43,13 @@ public class LIFXApi {
 
     public int getId() {
         return id;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
     }
 }

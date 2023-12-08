@@ -84,9 +84,9 @@ public class RoomController {
     }
 
     @PostMapping("/room/{id}/lights/on")
-    public ResponseEntity<String> turnOnLights(@PathVariable int id, @RequestParam String lightLabel,@RequestParam String token) {
+    public ResponseEntity<String> turnOnLights(@PathVariable int id, @RequestParam String lightLabel,@RequestParam String lightId,@RequestParam String token) {
         try {
-            roomService.turnOnLights(id, lightLabel,token);
+            roomService.turnOnLights(id, lightLabel,lightId, token);
             return ResponseEntity.ok("Lights turned on successfully");
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to turn on lights: " + e.getMessage());
@@ -94,9 +94,9 @@ public class RoomController {
     }
 
     @PostMapping("/room/{id}/lights/off")
-    public ResponseEntity<String> turnOffLights(@PathVariable int id, @RequestParam String lightLabel, @RequestParam String token) {
+    public ResponseEntity<String> turnOffLights(@PathVariable int id, @RequestParam String lightLabel,@RequestParam String lightId, @RequestParam String token) {
         try {
-            roomService.turnOffLights(id, lightLabel, token);
+            roomService.turnOffLights(id, lightLabel, lightId, token);
             return ResponseEntity.ok("Lights turned off successfully");
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to turn off lights: " + e.getMessage());
@@ -104,10 +104,19 @@ public class RoomController {
     }
 
     @PostMapping("/room/{id}/add_light")
-    public ResponseEntity<String> addLight(@PathVariable int id, @RequestParam String label, @RequestParam int light_id){
-        Light newLight = new Light(light_id, false, label);
-        roomService.getRoomById(id).addLight(newLight);
-        return ResponseEntity.ok("Added new light id:" + newLight.getId());
+    public ResponseEntity<String> addLight(@PathVariable int id, @RequestParam String label){
+        Room room = roomService.getRoomById(id);
+        if (room != null) {
+            Light newLight = new Light(label, false);
+            room.addLight(newLight);
+
+            // Save the updated room with the new light to the database
+            roomService.saveRoom(room);
+
+            return ResponseEntity.ok("Added new light id: " + newLight.getId());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Room not found with ID: " + id);
+        }
     }
 
 

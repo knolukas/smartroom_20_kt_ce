@@ -1,5 +1,6 @@
 package se.smartroom.entities.physicalDevice;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -14,6 +15,9 @@ public class Light extends PhysicalDevice {
     private int id;
 
     private String label;
+
+    @Column(nullable = false)
+    private boolean is_on = false;
 
     public String getLabel() {
         return label;
@@ -34,6 +38,11 @@ public class Light extends PhysicalDevice {
         super(open);
         this.id = id;
     }
+    public Light(String label, boolean open){
+        super(open);
+        this.label = label;
+    }
+
 
     public Light(int id, boolean open, String label) {
         super(open);
@@ -47,6 +56,13 @@ public class Light extends PhysicalDevice {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isOn() {
+        return is_on;
+    }
+    public void setOn(boolean open) {
+        this.is_on = open;
     }
 
     @Override

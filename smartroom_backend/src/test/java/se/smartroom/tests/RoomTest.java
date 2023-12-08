@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import se.smartroom.entities.Room;
 import se.smartroom.entities.data.Co2SensorData;
+import se.smartroom.entities.LIFXApi.LIFXApi;
 import se.smartroom.entities.data.TemperatureData;
 import se.smartroom.entities.people.PeopleData;
 import se.smartroom.entities.physicalDevice.Door;
@@ -12,6 +13,7 @@ import se.smartroom.entities.physicalDevice.Fenster;
 import se.smartroom.entities.physicalDevice.Fan;
 import se.smartroom.entities.physicalDevice.Light;
 import se.smartroom.repositories.RoomRepository;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -81,6 +83,50 @@ public class RoomTest {
         assertEquals(Collections.emptyList(), room.getTemperatureData());
         assertEquals(Collections.emptyList(), room.getPeopleData());
     }
+/*
+    @Test
+    public void testConstructorWithApiInstance() {
+        // Arrange
+        String expectedName = "Room with API";
+        int expectedSize = 150;
+
+        Door door = new Door();
+        Fenster fenster = new Fenster();
+        Light light = new Light();
+        Fan fan = new Fan();
+        Co2SensorData co2SensorData = new Co2SensorData();
+        TemperatureData temperatureData = new TemperatureData();
+        PeopleData peopleData = new PeopleData();
+
+        // Mock LIFXApi instance
+        LIFXApi lifxApi = new LIFXApi("mockApiToken");
+
+        // Act
+        Room room = new Room(expectedName, expectedSize,
+                Collections.singletonList(door),
+                Collections.singletonList(fenster),
+                Collections.singletonList(light),
+                Collections.singletonList(fan),
+                Collections.singletonList(co2SensorData),
+                Collections.singletonList(temperatureData),
+                Collections.singletonList(peopleData),
+                lifxApi // Pass the LIFXApi instance to the constructor
+        );
+
+        // Assert
+        assertEquals(expectedName, room.getName());
+        assertEquals(expectedSize, room.getSize());
+        assertEquals(Collections.singletonList(door), room.getDoors());
+        assertEquals(Collections.singletonList(fenster), room.getRoomWindows());
+        assertEquals(Collections.singletonList(light), room.getLights());
+        assertEquals(Collections.singletonList(fan), room.getFans());
+        assertEquals(Collections.singletonList(co2SensorData), room.getCo2SensorData());
+        assertEquals(Collections.singletonList(temperatureData), room.getTemperatureData());
+        assertEquals(Collections.singletonList(peopleData), room.getPeopleData());
+        assertEquals(lifxApi, room.getApiInstance()); // Check if the API instance is set correctly
+    }
+
+ */
     @Test
     public void testCo2SensorDataMethods() {
         // instance of DataContainer
