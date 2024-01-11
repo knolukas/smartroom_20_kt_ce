@@ -14,8 +14,10 @@ public class Light extends PhysicalDevice {
     @GeneratedValue
     private int id;
 
+    @Column
     private String label;
-
+    @Column
+    private String token;
     @Column(nullable = false)
     private boolean is_on = false;
 
@@ -63,6 +65,22 @@ public class Light extends PhysicalDevice {
     }
     public void setOn(boolean open) {
         this.is_on = open;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public boolean isIs_on() {
+        return is_on;
+    }
+
+    public void setIs_on(boolean is_on) {
+        this.is_on = is_on;
     }
 
     @Override

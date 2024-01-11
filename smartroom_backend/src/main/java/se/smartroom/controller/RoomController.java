@@ -41,7 +41,6 @@ public class RoomController {
 
         //System.out.println("Test: ");
         //System.out.println(room);
-
         return roomService.updateRoom(room);
     }
 
@@ -84,7 +83,11 @@ public class RoomController {
     }
 
     @PostMapping("/room/{id}/lights/on")
-    public ResponseEntity<String> turnOnLights(@PathVariable int id, @RequestParam String lightLabel,@RequestParam String lightId,@RequestParam String token) {
+    public ResponseEntity<String> turnOnLights(@PathVariable int id, @RequestBody Light light) {
+        System.out.println("Enter lights on");
+        String lightLabel = light.getLabel();
+        int lightId = light.getId();
+        String token = "c539309865aa41bd1e99b06df6e9ba66a328b8c176c9dea2762614aec75df406"; //TODO: token aus config holen @Henrique
         try {
             roomService.turnOnLights(id, lightLabel,lightId, token);
             return ResponseEntity.ok("Lights turned on successfully");
@@ -94,7 +97,12 @@ public class RoomController {
     }
 
     @PostMapping("/room/{id}/lights/off")
-    public ResponseEntity<String> turnOffLights(@PathVariable int id, @RequestParam String lightLabel,@RequestParam String lightId, @RequestParam String token) {
+    public ResponseEntity<String> turnOffLights(@PathVariable int id, @RequestBody Light light) {
+        System.out.println("Enter lights off");
+        String lightLabel = light.getLabel();
+        int lightId = light.getId(); //ist die ID wichtig?
+        String token = "c539309865aa41bd1e99b06df6e9ba66a328b8c176c9dea2762614aec75df406"; //TODO: token aus config holen @Henrique
+        lightLabel = "deinLabel"; //hier überschreiben für Test
         try {
             roomService.turnOffLights(id, lightLabel, lightId, token);
             return ResponseEntity.ok("Lights turned off successfully");

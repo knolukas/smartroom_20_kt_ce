@@ -1,7 +1,7 @@
 import { Component, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoomService } from '../../room.service';
-import { Fan, Room } from '../../entities/entity';
+import {Fan, Light, Room} from '../../entities/entity';
 import { BarChartComponent } from 'src/app/bar-chart/bar-chart.component';
 import { LineChartComponent } from 'src/app/line-chart/line-chart.component';
 import { Co2LineChartComponent } from 'src/app/line-chart-co2/line-chart-co2.component';
@@ -53,40 +53,40 @@ export class RoomDetailsComponent implements OnInit {
     });
 
     /* Updates room information - necessary for charts */
-    setInterval(() => {
-      this.updateRoomLoop();
-
-      //let root = <HTMLElement>document.getElementById("PeopleNumber");
-      const root = <HTMLElement>document.getElementById("PeopleNumber");
-      var peopleNum = this.room.peopleData[this.room.peopleData.length - 1].count.toString();
-      var peopleNumId = this.room.id;
-      var activeId = "";
-
-      if(peopleNum == null) {
-        peopleNum = "...";
-      }
-
-      const currentUrl = window.location.href;
-      const urlSegments = currentUrl.split('/');
-      const lastSegment = urlSegments[urlSegments.length - 1];
-      
-      const number = parseInt(lastSegment, 10);
-      if (!isNaN(number)) {
-        activeId = String(number);
-      }
-
-      if(peopleNum == this.lastPeopleNumber && this.lastPeopleNumber != "Load..." && ((Number(peopleNum) - 2) <= Number(this.lastPeopleNumber)) && ((Number(peopleNum) + 2) >= Number(this.lastPeopleNumber)) && Number(this.room.id) == Number(activeId)){
-        this.renderer.setProperty(root, 'textContent', peopleNum)
-        console.log("HMTL Elemenet");
-        console.log(root);
-      }else{
-        this.lastPeopleNumber = peopleNum;
-        this.lastPeopleId = String(peopleNumId);
-      }
- 
-
-
-    }, 2000);
+    // setInterval(() => {
+    //   this.updateRoomLoop();
+    //
+    //   //let root = <HTMLElement>document.getElementById("PeopleNumber");
+    //   const root = <HTMLElement>document.getElementById("PeopleNumber");
+    //   var peopleNum = this.room.peopleData[this.room.peopleData.length - 1].count.toString();
+    //   var peopleNumId = this.room.id;
+    //   var activeId = "";
+    //
+    //   if(peopleNum == null) {
+    //     peopleNum = "...";
+    //   }
+    //
+    //   const currentUrl = window.location.href;
+    //   const urlSegments = currentUrl.split('/');
+    //   const lastSegment = urlSegments[urlSegments.length - 1];
+    //
+    //   const number = parseInt(lastSegment, 10);
+    //   if (!isNaN(number)) {
+    //     activeId = String(number);
+    //   }
+    //
+    //   if(peopleNum == this.lastPeopleNumber && this.lastPeopleNumber != "Load..." && ((Number(peopleNum) - 2) <= Number(this.lastPeopleNumber)) && ((Number(peopleNum) + 2) >= Number(this.lastPeopleNumber)) && Number(this.room.id) == Number(activeId)){
+    //     this.renderer.setProperty(root, 'textContent', peopleNum)
+    //     console.log("HMTL Elemenet");
+    //     console.log(root);
+    //   }else{
+    //     this.lastPeopleNumber = peopleNum;
+    //     this.lastPeopleId = String(peopleNumId);
+    //   }
+    //
+    //
+    //
+    // }, 2000);
   }
 
   public deleteRoom() {
@@ -104,7 +104,7 @@ export class RoomDetailsComponent implements OnInit {
   }
 
   public update() {
-    // Navigate to the update room page 
+    // Navigate to the update room page
     //this works!
 
     this.updateRoom();
@@ -121,21 +121,27 @@ export class RoomDetailsComponent implements OnInit {
   updateDoorState(door: any) {
     console.log('Door state changed:', this.room.doors);
     this.updateRoom();
-    
+
    // this.roomService.updateRoom(this.room);
   }
 
   updateFanState(fan: any) {
     console.log('Fan state changed:', fan.open);
     this.updateRoom();
-    
+
    // this.roomService.updateRoom(this.room);
   }
 
   updateLightState(light: any) {
     console.log('Light state changed:', light.open);
+    if(light.on){
+      this.roomService.turnOffLights(this.id, light);
+    }else{
+      this.roomService.turnOnLights(this.id, light);
+    }
+    this.roomService.turnOffLights(this.id, light);
     this.updateRoom();
-    
+
     //this.roomService.updateRoom(this.room);
   }
 
@@ -192,7 +198,7 @@ export class RoomDetailsComponent implements OnInit {
   public updateRoomLoop() {
     // Continuously update the room data on the server
     //console.log("Check Data: ");
-    console.log(this.room);
+    //console.log(this.room);
 
     //Update does work some of the time here
 
@@ -206,7 +212,7 @@ export class RoomDetailsComponent implements OnInit {
     this.lineChartComponent.updateChart();
     this.co2lineChartComponent.updateChart();
     //this.barChartComponent.updateChartData();
- 
-  
+
+
   }
 }

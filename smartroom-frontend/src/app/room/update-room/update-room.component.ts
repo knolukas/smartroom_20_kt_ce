@@ -101,7 +101,10 @@ export class UpdateRoomComponent {
     // Add a light to the room
     this.room.lights.push({
       id: id,
-      open: true
+      is_on: true,
+      open: true,
+      token: "token_test_update",
+      label: "test_label_update"
     });
 
     this.delayedUpdate();
@@ -118,7 +121,7 @@ export class UpdateRoomComponent {
       id: id,
       open: true
     });
-    
+
     this.delayedUpdate();
     /*
     this.roomService.updateRoom(this.room).subscribe((data) => {
@@ -137,43 +140,43 @@ export class UpdateRoomComponent {
 
       return;
     }
-  
+
     this.isGettingNextID = true;
     try {
       const data = await this.roomService.getRooms().toPromise();
-  
+
       const doors: number[] = [];
       const roomWindows: number[] = [];
       const lights: number[] = [];
       const fans: number[] = [];
-  
+
       data?.forEach((room) => {
         doors.push(...room.doors.map((door) => door.id));
         roomWindows.push(...room.roomWindows.map((window) => window.id));
         lights.push(...room.lights.map((light) => light.id));
         fans.push(...room.fans.map((fan) => fan.id));
       });
-  
+
       this.nextFanId = Math.max(...fans) + 1;
       this.nextLightId = Math.max(...lights) + 1;
       this.nextDoorId = Math.max(...doors) + 1;
       this.nextWindowId = Math.max(...roomWindows) + 1;
-  
+
       // Ensure IDs are not negative
       this.nextFanId = Math.max(this.nextFanId, 0);
       this.nextLightId = Math.max(this.nextLightId, 0);
       this.nextDoorId = Math.max(this.nextDoorId, 0);
       this.nextWindowId = Math.max(this.nextWindowId, 0);
-  
+
       await new Promise((resolve) => setTimeout(resolve, 2000));
-  
+
       this.route.params.subscribe(params => {
         this.id = +params['id'];
         this.roomService.getRoom(this.id).subscribe((room) => {
           this.room = room;
         });
       });
-  
+
       switch (Selection) {
         case 1:
           this.addLight(this.nextLightId);
@@ -194,7 +197,7 @@ export class UpdateRoomComponent {
       console.error("Error:", error);
     }
   }
-  
+
 
   public addLightButton() {
     // Add a light to the room and update the room
@@ -203,7 +206,7 @@ export class UpdateRoomComponent {
       on: false,
       id: this.nextLightId
     });
-    console.log("ID: " + this.nextLightId); 
+    console.log("ID: " + this.nextLightId);
     this.updateRoom();*/
   }
 
@@ -215,7 +218,7 @@ export class UpdateRoomComponent {
       on: false,
       id: this.nextFanId,
     });
-    console.log("ID: " + this.nextFanId); 
+    console.log("ID: " + this.nextFanId);
     this.updateRoom();*/
   }
 
@@ -226,7 +229,7 @@ export class UpdateRoomComponent {
       open: false,
       id: this.nextDoorId
     });
-    console.log("ID: " + this.nextDoorId); 
+    console.log("ID: " + this.nextDoorId);
     this.updateRoom();*/
   }
 
@@ -237,7 +240,7 @@ export class UpdateRoomComponent {
       id: this.nextWindowId,
       open: false
     });
-    console.log("ID: " + this.nextWindowId); 
+    console.log("ID: " + this.nextWindowId);
     this.updateRoom();*/
   }
 

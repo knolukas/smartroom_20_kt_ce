@@ -39,7 +39,7 @@ export class AddRoomComponent {
   @Output() roomAdded: EventEmitter<void> = new EventEmitter<void>();
 
 
-  
+
   /**
    * Add room and navigate to room view
    * @date 7/3/2023 - 12:24:10 AM
@@ -73,7 +73,10 @@ export class AddRoomComponent {
   addLight() {
     this.room.lights.push({
       id: this.light.id,
-      open: this.light.open
+      open: this.light.open,
+      label: this.light.label,
+      token: this.light.token,
+      is_on: this.light.is_on
     });
     this.light = emptyLight;
   }

@@ -12,7 +12,10 @@ export type Door = {
 
   export type Light = {
     id: number;
+    is_on: boolean;
     open: boolean;
+    label: string;
+    token: string;
   }
 
   export type Fan = {
@@ -82,7 +85,10 @@ export const emptyWindow: Fenster = {
 
 export const emptyLight: Light = {
   id: 0,
-  open: true
+  is_on: true,
+  open:true,
+  token: "token_test",
+  label: "label_test"
 }
 
 export const emptyFan: Fan = {
