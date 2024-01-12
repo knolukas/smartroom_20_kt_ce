@@ -39,17 +39,19 @@ export class UpdateRoomComponent {
 
   constructor(private route: ActivatedRoute, private roomService: RoomService, private router: Router) {}
 
+  public isDataLoaded: boolean = false;
+
   ngOnInit() {
-    // Load Room by ID
+    if(!this.isDataLoaded)
     this.route.params.subscribe(params => {
       this.id = +params['id'];
       this.roomService.getRoom(this.id).subscribe((room) => {
         this.room = room;
+        this.isDataLoaded = true; // Daten wurden geladen
         console.log("GET");
         console.log(this.room);
       });
     });
-
   }
 
   private delayedUpdate(){

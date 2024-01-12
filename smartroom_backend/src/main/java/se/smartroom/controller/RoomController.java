@@ -112,7 +112,7 @@ public class RoomController {
 //        lightId = "d073d556463a";
         try {
             roomService.updateColor(id, lightLabel, lightId, token, colorId);
-            return ResponseEntity.ok("Lights turned off successfully");
+            return ResponseEntity.ok("Light color updated");
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to turn off lights: " + e.getMessage());
         }

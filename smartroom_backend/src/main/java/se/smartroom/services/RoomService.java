@@ -320,7 +320,7 @@ public class RoomService {
 
             // Turn on each light using the LIFX API
             for (Light light : lights) {
-                if (light.getLabel().equals(label)&&light.isOn()==true) {
+                if (light.getLabel().equals(label)&& light.isOn()) {
                     light.setOn(false);
                     AsyncHttpClient client = new DefaultAsyncHttpClient();
                     client.prepare("PUT", "https://api.lifx.com/v1/lights/" + lightId + "/state")
@@ -357,7 +357,6 @@ public class RoomService {
             // Turn on each light using the LIFX API
             for (Light light : lights) {
                 if (light.getLabel().equals(lightLabel)&& light.isOn()) {
-                    light.setOn(false);
                     AsyncHttpClient client = new DefaultAsyncHttpClient();
                     client.prepare("PUT", "https://api.lifx.com/v1/lights/" + lightId + "/state")
                             .setHeader("accept", "text/plain")
