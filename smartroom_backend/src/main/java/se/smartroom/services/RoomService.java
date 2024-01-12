@@ -279,7 +279,7 @@ public class RoomService {
 
 
 
-    public void turnOnLights(int roomId, String label, int lightId, String token) throws IOException {
+    public void turnOnLights(int roomId, String label, String lightId, String token) throws IOException {
         // Retrieve the room from the database
         Room room = repository.findById(roomId).orElse(null);
         //String token = room.getApiToken();
@@ -314,7 +314,7 @@ public class RoomService {
         }
     }
 
-    public void turnOffLights(int roomId, String label, int lightId, String token) throws IOException {
+    public void turnOffLights(int roomId, String label, String lightId, String token) throws IOException {
         Room room = repository.findById(roomId).orElse(null);
         assert room != null;
         //String token = room.getApiToken();

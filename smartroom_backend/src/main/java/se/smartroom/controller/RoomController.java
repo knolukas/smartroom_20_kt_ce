@@ -86,8 +86,11 @@ public class RoomController {
     public ResponseEntity<String> turnOnLights(@PathVariable int id, @RequestBody Light light) {
         System.out.println("Enter lights on");
         String lightLabel = light.getLabel();
-        int lightId = light.getId();
+        String lightId = String.valueOf(light.getId());
+        //hier überschreiben für Test
         String token = "c539309865aa41bd1e99b06df6e9ba66a328b8c176c9dea2762614aec75df406"; //TODO: token aus config holen @Henrique
+        lightLabel = "NightLight";
+        lightId = "d073d556463a";
         try {
             roomService.turnOnLights(id, lightLabel,lightId, token);
             return ResponseEntity.ok("Lights turned on successfully");
@@ -100,9 +103,11 @@ public class RoomController {
     public ResponseEntity<String> turnOffLights(@PathVariable int id, @RequestBody Light light) {
         System.out.println("Enter lights off");
         String lightLabel = light.getLabel();
-        int lightId = light.getId(); //ist die ID wichtig?
+        String lightId = String.valueOf(light.getId());
+        //hier überschreiben für Test
         String token = "c539309865aa41bd1e99b06df6e9ba66a328b8c176c9dea2762614aec75df406"; //TODO: token aus config holen @Henrique
-        lightLabel = "deinLabel"; //hier überschreiben für Test
+        lightLabel = "NightLight";
+        lightId = "d073d556463a";
         try {
             roomService.turnOffLights(id, lightLabel, lightId, token);
             return ResponseEntity.ok("Lights turned off successfully");
