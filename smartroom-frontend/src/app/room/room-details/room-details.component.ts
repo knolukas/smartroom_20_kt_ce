@@ -35,6 +35,7 @@ export class RoomDetailsComponent implements OnInit {
   public room!: Room;
   public lastPeopleNumber = "0";
   public lastPeopleId = "0"
+  public selectedColor: string = '#ffffff'; // Standardfarbe
 
   constructor(
     private route: ActivatedRoute,
@@ -143,6 +144,13 @@ export class RoomDetailsComponent implements OnInit {
     this.updateRoom();
 
     //this.roomService.updateRoom(this.room);
+  }
+
+  updateColor(light: any, color: string): void {
+    console.log('Selected Color:', this.selectedColor);
+    if(light.on){
+      this.roomService.updateColor(this.id, light, color);
+    }
   }
 
   updateWindowState(window: any) {

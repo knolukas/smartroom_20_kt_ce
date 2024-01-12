@@ -1,18 +1,14 @@
 package se.smartroom.services;
 
-import jakarta.transaction.Transactional;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.DefaultAsyncHttpClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import se.smartroom.entities.Room;
 import se.smartroom.entities.data.Co2SensorData;
 import se.smartroom.entities.data.TemperatureData;
-import se.smartroom.entities.environment.EnvironmentData;
 import se.smartroom.entities.people.PeopleData;
-import se.smartroom.entities.physicalDevice.Fenster;
 
 import se.smartroom.entities.physicalDevice.Light;
 import se.smartroom.repositories.EnvironmentDataRepository;
@@ -27,7 +23,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 @Service
 public class RoomService {
@@ -350,6 +345,42 @@ public class RoomService {
         }
     }
 
+    public void updateColor(int id, String lightLabel, String lightId, String token, String colourId) throws IOException {
+        Room room = repository.findById(id).orElse(null);
+        assert room != null;
+        //String token = room.getApiToken();
+
+        if (token != null) {
+            // Assuming that the lights are stored in the 'lights' property of the Room class
+            List<Light> lights = room.getLights();
+
+            // Turn on each light using the LIFX API
+            for (Light light : lights) {
+                if (light.getLabel().equals(lightLabel)&& light.isOn()) {
+                    light.setOn(false);
+                    AsyncHttpClient client = new DefaultAsyncHttpClient();
+                    client.prepare("PUT", "https://api.lifx.com/v1/lights/" + lightId + "/state")
+                            .setHeader("accept", "text/plain")
+                            .setHeader("content-type", "application/json")
+                            .setHeader("Authorization","Bearer "+ token)
+                            .setBody("{\"duration\":1,\"fast\":true,\"color\":\"" + colourId + "\"}")
+                            .execute()
+                            .toCompletableFuture()
+                            .thenAccept(System.out::println)
+                            .join();
+
+                    client.close();
+                }
+            }
+            // Save the updated room with lights turned on
+            repository.save(room);
+        } else {
+            // Handle the case where the room is not found
+            System.out.println("Room not found with ID: " + id);
+            // Add appropriate error handling or logging based on your application's needs
+        }
+    }
+
 
 
     public Light getLightSelector(int roomId, String label) {
@@ -408,6 +439,7 @@ public class RoomService {
     public Room getRoomById(int id) {
         return repository.findById(id).orElse(null);
     }
+
 
 
 }

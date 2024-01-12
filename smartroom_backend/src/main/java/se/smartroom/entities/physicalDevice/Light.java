@@ -18,6 +18,8 @@ public class Light extends PhysicalDevice {
     private String label;
     @Column
     private String token;
+    @Column
+    private String lifxId;
     @Column(nullable = false)
     private boolean is_on = false;
 
@@ -83,14 +85,21 @@ public class Light extends PhysicalDevice {
         this.is_on = is_on;
     }
 
+    public String getLifxId() {
+        return lifxId;
+    }
+
+    public void setLifxId(String lifxId) {
+        this.lifxId = lifxId;
+    }
+
     @Override
     public String toString() {
         return "Light{" +
                 "id=" + id +
-                ", on=" + super.isOpen() +
+                ", label='" + label + '\'' +
+                ", token='" + token + '\'' +
+                ", is_on=" + is_on +
                 '}';
     }
-
-
-
 }

@@ -85,6 +85,7 @@ public class RoomController {
     @PostMapping("/room/{id}/lights/on")
     public ResponseEntity<String> turnOnLights(@PathVariable int id, @RequestBody Light light) {
         System.out.println("Enter lights on");
+        System.out.println(light);
         String lightLabel = light.getLabel();
         String lightId = String.valueOf(light.getId());
         //hier überschreiben für Test
@@ -99,9 +100,28 @@ public class RoomController {
         }
     }
 
+    @PostMapping("/room/{id}/lights/update_color")
+    public ResponseEntity<String> updateColour(@PathVariable int id,@RequestParam String colorId, @RequestBody Light light) {
+        System.out.println("Enter update color");
+        System.out.println(light);
+        String lightLabel = light.getLabel();
+        String lightId = String.valueOf(light.getId());
+        String token = light.getToken();
+//        String token = "c539309865aa41bd1e99b06df6e9ba66a328b8c176c9dea2762614aec75df406"; //TODO: token aus config holen @Henrique
+//        lightLabel = "NightLight";
+//        lightId = "d073d556463a";
+        try {
+            roomService.updateColor(id, lightLabel, lightId, token, colorId);
+            return ResponseEntity.ok("Lights turned off successfully");
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to turn off lights: " + e.getMessage());
+        }
+    }
+
     @PostMapping("/room/{id}/lights/off")
     public ResponseEntity<String> turnOffLights(@PathVariable int id, @RequestBody Light light) {
         System.out.println("Enter lights off");
+        System.out.println(light);
         String lightLabel = light.getLabel();
         String lightId = String.valueOf(light.getId());
         //hier überschreiben für Test

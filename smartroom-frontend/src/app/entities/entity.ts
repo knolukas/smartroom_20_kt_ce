@@ -16,6 +16,7 @@ export type Door = {
     open: boolean;
     label: string;
     token: string;
+    lifxId: string;
   }
 
   export type Fan = {
@@ -86,9 +87,10 @@ export const emptyWindow: Fenster = {
 export const emptyLight: Light = {
   id: 0,
   is_on: true,
-  open:true,
-  token: "token_test",
-  label: "label_test"
+  open: true,
+  token: "",
+  label: "",
+  lifxId: ""
 }
 
 export const emptyFan: Fan = {

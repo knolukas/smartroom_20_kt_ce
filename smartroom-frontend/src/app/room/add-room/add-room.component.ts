@@ -76,7 +76,8 @@ export class AddRoomComponent {
       open: this.light.open,
       label: this.light.label,
       token: this.light.token,
-      is_on: this.light.is_on
+      is_on: this.light.is_on,
+      lifxId: this.light.lifxId
     });
     this.light = emptyLight;
   }

@@ -60,4 +60,15 @@ export class RoomService {
     return this.http.post<Light>(url, light, { headers: headers });
   }
 
+  public updateColor(roomId: number, light: any, color: string): Observable<Light> {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const url = this.baseurl + 'room/' + roomId + '/lights/update_color?colorId=' + color;
+
+    console.log("Enter updateColor");
+    console.log("Request URL:", url);
+    console.log("Request Payload:", light);
+
+    return this.http.post<Light>(url, light, { headers: headers });
+  }
+
 }

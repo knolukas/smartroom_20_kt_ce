@@ -103,8 +103,9 @@ export class UpdateRoomComponent {
       id: id,
       is_on: true,
       open: true,
-      token: "token_test_update",
-      label: "test_label_update"
+      token: "c539309865aa41bd1e99b06df6e9ba66a328b8c176c9dea2762614aec75df406",
+      label: "NightLight",
+      lifxId: "d073d556463a",
     });
 
     this.delayedUpdate();
