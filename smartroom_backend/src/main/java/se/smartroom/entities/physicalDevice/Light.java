@@ -41,6 +41,9 @@ public class Light extends PhysicalDevice {
     public Light(int id, boolean open){
         super(open);
         this.id = id;
+        this.label="";
+        this.is_on= true;
+        this.token="";
     }
     public Light(String label, boolean open){
         super(open);
@@ -97,9 +100,10 @@ public class Light extends PhysicalDevice {
     public String toString() {
         return "Light{" +
                 "id=" + id +
-                ", label='" + label + '\'' +
-                ", token='" + token + '\'' +
+                ", label='" + (label != null ? label : "") + '\'' +
+                ", token='" + (token != null ? token : "") + '\'' +
                 ", is_on=" + is_on +
                 '}';
     }
+
 }

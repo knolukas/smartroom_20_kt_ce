@@ -79,8 +79,9 @@ public class EntitySmartDeviceTest {
         Light light = new Light(1, true);
 
         // Assert that the toString method returns the expected string representation
-        assertEquals("Light{id=1, on=true}", light.toString());
+        assertEquals("Light{id=1, label='', token='', is_on=true}", light.toString());
     }
+
 
     @Test
     public void testLightGetIdAndSetId() {
