@@ -135,21 +135,47 @@ export class RoomDetailsComponent implements OnInit {
 
   updateLightState(light: any) {
     console.log('Light state changed:', light.open);
-    if(light.on){
-      this.roomService.turnOffLights(this.id, light);
-    }else{
-      this.roomService.turnOnLights(this.id, light);
-    }
-    this.roomService.turnOffLights(this.id, light);
-    this.updateRoom();
 
-    //this.roomService.updateRoom(this.room);
+    if (light.on) {
+      this.roomService.turnOffLights(this.id, light)
+        .subscribe(
+          () => {
+            // Erfolgreiches Ausschalten der Lichter
+            this.updateRoom();
+          },
+          error => {
+            console.error('Fehler beim Ausschalten der Lichter:', error);
+          }
+        );
+    } else {
+      this.roomService.turnOnLights(this.id, light)
+        .subscribe(
+          () => {
+            // Erfolgreiches Einschalten der Lichter
+            this.updateRoom();
+          },
+          error => {
+            console.error('Fehler beim Einschalten der Lichter:', error);
+          }
+        );
+    }
   }
 
   updateColor(light: any, color: string): void {
     console.log('Selected Color:', this.selectedColor);
-    if(light.on){
-      this.roomService.updateColor(this.id, light, color);
+
+    if (light.on) {
+      this.roomService.updateColor(this.id, light, color)
+        .subscribe(
+          () => {
+            // Erfolgreiches Update der Lichtfarbe
+            console.log('Light color updated successfully');
+            this.updateRoom();
+          },
+          error => {
+            console.error('Fehler beim Aktualisieren der Lichtfarbe:', error);
+          }
+        );
     }
   }
 

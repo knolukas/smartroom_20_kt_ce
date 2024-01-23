@@ -38,7 +38,7 @@ export class RoomService {
     return this.http.put<Room>(this.baseurl + 'room/' + id + '/addValues', null);
   }
 
-  public turnOnLights(roomId: number, light: any): Observable<Light> {
+  public turnOnLights(roomId: number, light: Light): Observable<Light> {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     const url = this.baseurl + 'room/' + roomId + '/lights/on';
 
@@ -49,7 +49,7 @@ export class RoomService {
     return this.http.post<Light>(url, light, { headers: headers });
   }
 
-  public turnOffLights(roomId: number, light: any): Observable<Light> {
+  public turnOffLights(roomId: number, light: Light): Observable<Light> {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     const url = this.baseurl + 'room/' + roomId + '/lights/off';
 
@@ -60,7 +60,7 @@ export class RoomService {
     return this.http.post<Light>(url, light, { headers: headers });
   }
 
-  public updateColor(roomId: number, light: any, color: string): Observable<Light> {
+  public updateColor(roomId: number, light: Light, color: string): Observable<Light> {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     const url = this.baseurl + 'room/' + roomId + '/lights/update_color?colorId=' + color;
 
