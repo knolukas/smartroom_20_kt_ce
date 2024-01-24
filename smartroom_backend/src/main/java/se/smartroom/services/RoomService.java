@@ -284,7 +284,7 @@ public class RoomService {
             List<Light> lights = room.getLights();
 
             for (Light light : lights) {
-                if (light.getLabel().equals(label)) {
+                if (light.getLabel().equals(label) && !light.isOn()) {
                     light.setOn(true);
                     AsyncHttpClient client = new DefaultAsyncHttpClient();
                     client.prepare("PUT", "https://api.lifx.com/v1/lights/" + lightId + "/state")

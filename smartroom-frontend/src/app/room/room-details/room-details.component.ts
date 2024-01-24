@@ -134,7 +134,7 @@ export class RoomDetailsComponent implements OnInit {
   }
 
   updateLightState(light: any) {
-    console.log('Light state changed:', light.open);
+    console.log('Light state changed:', light.is_on);
 
     if (light.on) {
       this.roomService.turnOffLights(this.id, light)

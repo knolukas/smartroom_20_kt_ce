@@ -87,7 +87,7 @@ public class RoomController {
         System.out.println("Enter lights on");
         System.out.println(light);
         String lightLabel = light.getLabel();
-        String lightId = String.valueOf(light.getId());
+        String lightId = String.valueOf(light.getLifxId());
         //hier überschreiben für Test
         String token = "c539309865aa41bd1e99b06df6e9ba66a328b8c176c9dea2762614aec75df406"; //TODO: token aus config holen @Henrique
         lightLabel = "NightLight";
@@ -105,7 +105,7 @@ public class RoomController {
         System.out.println("Enter update color");
         System.out.println(light);
         String lightLabel = light.getLabel();
-        String lightId = String.valueOf(light.getId());
+        String lightId = String.valueOf(light.getLifxId());
         String token = light.getToken();
 //        String token = "c539309865aa41bd1e99b06df6e9ba66a328b8c176c9dea2762614aec75df406"; //TODO: token aus config holen @Henrique
 //        lightLabel = "NightLight";
@@ -123,7 +123,7 @@ public class RoomController {
         System.out.println("Enter lights off");
         System.out.println(light);
         String lightLabel = light.getLabel();
-        String lightId = String.valueOf(light.getId());
+        String lightId = String.valueOf(light.getLifxId());
         //hier überschreiben für Test
         String token = "c539309865aa41bd1e99b06df6e9ba66a328b8c176c9dea2762614aec75df406"; //TODO: token aus config holen @Henrique
         lightLabel = "NightLight";

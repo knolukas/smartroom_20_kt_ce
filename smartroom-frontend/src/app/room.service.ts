@@ -53,7 +53,7 @@ export class RoomService {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     const url = this.baseurl + 'room/' + roomId + '/lights/off';
 
-    console.log("Enter turnOnLights");
+    console.log("Enter turnOffLights");
     console.log("Request URL:", url);
     console.log("Request Payload:", light);
 

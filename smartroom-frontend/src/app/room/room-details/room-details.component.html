@@ -190,20 +190,20 @@
           </div>
         </div>
         <div class="bottomRow">
-            <div class="state"> {{ light.open ? 'on' : 'off' }}</div>
+            <div class="state"> {{ light.is_on ? 'on' : 'off' }}</div>
             <div class="switch">
             <label class="">
-              <input type="checkbox" class="toggle" [(ngModel)]="light.open" (change)="updateLightState(light)">
+              <input type="checkbox" class="toggle" [(ngModel)]="light.is_on" (change)="updateLightState(light)">
               <div class="slider" >
                 <div class="bubble"></div>
               </div>
             </label>
             </div>
-          <div class="colorPicker" *ngIf="light.open">
+          <div class="colorPicker" *ngIf="light.is_on">
             <label for="colorPicker{{i}}">Choose Color:</label>
             <input type="color" id="colorPicker{{i}}" [(ngModel)]="selectedColor" (change)="updateColor(light, selectedColor)">
           </div>
-          <div *ngIf="light.open">
+          <div *ngIf="light.is_on">
             <button (click)="updateColor(light, selectedColor)">Update Color</button>
           </div>
         </div>

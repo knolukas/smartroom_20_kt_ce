@@ -80,13 +80,6 @@ public class Light extends PhysicalDevice {
         this.token = token;
     }
 
-    public boolean isIs_on() {
-        return is_on;
-    }
-
-    public void setIs_on(boolean is_on) {
-        this.is_on = is_on;
-    }
 
     public String getLifxId() {
         return lifxId;
